@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>ROS WEB Teleoperater</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- <link rel="stylesheet" href="css/cover.css" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
+    <script src="js/eventemitter2.min.js"></script>
+    <script src="js/roslib.min.js"></script>
+    <script type="text/javascript">
+    console.log('Teleop is starting!')
+    </script>
+</head>
+
+<body class="text-center">
+    <script type="text/javascript">
+    if (!Talker) {
+        console.log('Making ROS taker');
+        var Talker = {
+            ros: null,
+            name: "",
+            init: function() {
+                this.ros = new ROSLIB.Ros();
+                this.ros.on('error', function(error) {
+                    document.getElementById('state').innerHTML = "Error";
+                });
+                this.ros.on('connection', function(error) {
+                    document.getElementById('state').innerHTML = "Connect";
+                });
+                this.ros.on('close', function(error) {
+                    document.getElementById('state').innerHTML = "Close";
+                });
+                this.ros.connect('ws://' + location.hostname + ':9090');
+            },
+            send: function(comment) {
+                // if (document.getElementById("comment").value.length == 0) return;
+                // var comment = document.getElementById("comment").value;
+                var pub = new ROSLIB.Topic({
+                    ros: this.ros,
+                    name: '/web_operater',
+                    messageType: 'std_msgs/String'
+                });
+
+                var str = new ROSLIB.Message({ data: comment });
+                pub.publish(str);
+                console.log(comment + 'is published. ');
+                // console.log('is publisded. ')
+            }
+        }
+        Talker.init();
+
+        window.onload = function() {
+            document.getElementById('camera_image').src = 'http://' + location.hostname + ':8080/stream?topic=/image_raw&type=ros_compressed'
+            console.log();
+        };
+        window.onunload = function() {
+            Talker.ros.close();
+        };
+    }
+    </script>
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#">Tamiya Cam Robot Controller</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+                <form class="form-inline mt-2 mt-md-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="container">
+        <p class="lead text-light text-center">status： <label id="state">Disconnect</label></p>
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <img id="camera_image" class="img-fluid" src='' alt = 'web camera streamed image'></img>
+            </div>
+            <div class="col-md-6">
+                <!-- JOY -->
+                <!-- M0: left motor, M1: right motor -->
+                <div class="row">
+                    <!-- Left Up -->
+                    <div class="col-sm-3">
+                        <form action="javascript:Talker.send('M0F064M1F128');" id="ui">
+                            <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <i class="fas fa-reply fa-lg"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <!-- Up -->
+                    <div class="col-sm-6">
+                        <form action="javascript:Talker.send('M0F128M1F128');" id="ui">
+                            <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <i class="fas fa-angle-up fa-lg"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <!-- Right Up -->
+                    <div class="col-sm-3">
+                        <form action="javascript:Talker.send('M0F128M1F064');" id="ui">
+                            <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <i class="fas fa-reply fa-flip-horizontal fa-lg"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Left Turn -->
+                    <div class="col-sm-3">
+                        <form action="javascript:Talker.send('M0R128M1F128');" id="ui">
+                            <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <i class="fas fa-angle-left fa-lg"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <!--  -->
+                    <div class="col-sm-6">
+                        <form action="javascript:Talker.send('M0R000M1R000');" id="ui">
+                            <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <i class="fas fa-circle fa-lg"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <!-- Right Turn -->
+                    <div class="col-sm-3">
+                        <form action="javascript:Talker.send('M0F128M1R128');" id="ui">
+                            <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <i class="fas fa-angle-right fa-lg"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Left Down -->
+                    <div class="col-sm-3">
+                        <form action="javascript:Talker.send('M0R064M1R128');" id="ui">
+                            <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <i class="fas fa-reply fa-flip-vertical fa-lg"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <!-- Down -->
+                    <div class="col-sm-6">
+                        <form action="javascript:Talker.send('M0R128M1R128');" id="ui">
+                            <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <i class="fas fa-angle-down fa-lg"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <!-- Down -->
+                    <div class="col-sm-3">
+                        <form action="javascript:Talker.send('M0R128M1R064');" id="ui">
+                            <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <i class="fas fa-reply fa-flip-horizontal fa-flip-vertical fa-lg"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- End of JOY -->
+            </div>
+        </div>
+    </main>
+    <footer class="footer navbar-dark bg-dark">
+        <div class="container">
+            <span class="text-muted">Place sticky footer content here.</span>
+        </div>
+    </footer>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
