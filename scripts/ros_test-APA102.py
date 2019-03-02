@@ -70,6 +70,11 @@ class Pixels:
 
         print(s)
 
+        for l in [[255, 0, 0], [0, 255, 0], [0, 0, 255]]:
+            self.set_LED_RGB(0, l[0], l[1], l[2])
+            self.update()
+            time.sleep(1)
+
     def __del__(self):
 
         for i in range(LEDS):
@@ -100,7 +105,7 @@ class Pixels:
 
     def tx_bytes(self, bytes):
         global chain
-        while pi.wave_tx_busy():
+        while self.pi.wave_tx_busy():
             pass
         j = 0
         for i in range(len(bytes)):
