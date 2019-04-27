@@ -15,7 +15,7 @@
 |--------------------------------------|--------------------------------------------------------|
 | Raspberry Pi | ROSを搭載したメインコントローラ                                                |    
 | USB Camera  |カムロボットに搭載するカメラ                                                     |    
-| Motor Drive |DCモータを制御するためのIC．今回は[TB6612](https//www.switch-science.com/catalog/3586/)を使用．                                 |  
+| Motor Driver |DCモータを制御するためのIC．今回は[TB6612](https//www.switch-science.com/catalog/3586/)を使用．                                 |  
 | R/L-Motor |カムロボットに搭載されているDCモータ                                               |                                               
 | Power Bank|  Raspberry Pi 用のモバイルバッテリー                                                   |                                            
 | Alkaline Battery  |モータ駆動用のアルカリ電池．                                               |                                              
@@ -44,8 +44,8 @@ TB6612は1つのモータにつき，2つのデジタル入力と1つのPWMで�
 | A02    | RMotor-YELLOW          |
 | B01    | LMotor-BLUE            |
 | B02    | LMotor-YELLOW          |
-| VM     | Alkaline-V+            |
-| STBY   | Alkaline-V+            |
+| VM     | Raspi-3V3              |
+| STBY   | Raspi-3V3              |
 | GND    | Raspi-GND, Alkaline-V- |
 
 <!-- MotorB, 5,6,13に変更 -->
@@ -61,6 +61,13 @@ cd ~/catkin_ws/src
 git clone git@gitlab.com:botamochi6277/tamiya_cam_robot.git
 cd ~/catkin_ws
 catkin_make
+```
+
+続いて，GPIOを操作するために[pigpio](http://abyz.me.uk/rpi/pigpio/)というライブラリをインストールします，次のコマンドを実行してください．
+
+```bash
+sudo apt-get update
+sudo apt-get install pigpio python-pigpio python3-pigpio
 ```
 
 ROSは基本的にrootで実行できません．一方で，RaspberryPiのGPIOはrootでないと操作できません．

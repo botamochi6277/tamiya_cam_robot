@@ -14,7 +14,7 @@ You can teleoperate the robot with web browser of your smart-phone.
 |--------------------------------------|--------------------------------------------------------|
 | Raspberry Pi | One board PC to control the cam-robot                                              |    
 | USB Camera  |Camera to obtain robot's view                                                     |    
-| Motor Drive |IC controlling DC motors. This repository uses [TB6612](https//www.switch-science.com/catalog/3586/)．                                 |  
+| Motor Driver |IC controlling DC motors. This repository uses [TB6612](https//www.switch-science.com/catalog/3586/)．                                 |  
 | R/L-Motor |DC motors of the cam robot                                               |                                               
 | Power Bank|  Battery for Raspberry Pi                                                    |                                            
 | Alkaline Battery  |Battery for  the motors                                               |                                              
@@ -44,8 +44,8 @@ This project connects wires according to a following table and a figure.
 | A02    | RMotor-YELLOW          |
 | B01    | LMotor-BLUE            |
 | B02    | LMotor-YELLOW          |
-| VM     | Alkaline-V+            |
-| STBY   | Alkaline-V+            |
+| VM     | Raspi-3V3              |
+| STBY   | Raspi-3V3              |
 | GND    | Raspi-GND, Alkaline-V- |
 
 ![](img/raspi_motor_bb.png)
@@ -65,6 +65,14 @@ git clone git@gitlab.com:botamochi6277/tamiya_cam_robot.git
 cd ~/catkin_ws
 catkin_make
 ```
+
+Please install [pigpio](http://abyz.me.uk/rpi/pigpio/) with following commands．
+
+```bash
+sudo apt-get update
+sudo apt-get install pigpio python-pigpio python3-pigpio
+``
+
 
 We cannot generally run rosnode as root.
 On the other hand, only root can control Pi's GPIO.
