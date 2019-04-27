@@ -62,8 +62,8 @@ int main(int argc, char **argv) {
 
   // drive the motors
   ROS_INFO("Go forward.");
-  driver.drive(TB6612::A, 128);
-  driver.drive(TB6612::B, 128);
+  driver.drive(TB6612::A, 128);// right motor
+  driver.drive(TB6612::B, 128);// left motor
   std::this_thread::sleep_for(std::chrono::seconds(3));
 
   ROS_INFO("Go backward.");
@@ -72,13 +72,13 @@ int main(int argc, char **argv) {
   std::this_thread::sleep_for(std::chrono::seconds(3));
 
   ROS_INFO("Turn right.");
-  driver.drive(TB6612::A, 128);
-  driver.drive(TB6612::B, -128);
+  driver.drive(TB6612::A, -128);
+  driver.drive(TB6612::B, 128);
   std::this_thread::sleep_for(std::chrono::seconds(3));
 
   ROS_INFO("Turn left.");
-  driver.drive(TB6612::A, -128);
-  driver.drive(TB6612::B, 128);
+  driver.drive(TB6612::A, 128);
+  driver.drive(TB6612::B, -128);
   std::this_thread::sleep_for(std::chrono::seconds(3));
 
   // Stop motors

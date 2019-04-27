@@ -112,8 +112,8 @@ class TB6612 {
    */
   void twistCallback(const geometry_msgs::Twist::ConstPtr& msg){
     static int pwm_r, pwm_l;
-    pwm_r = msg->linear.x +0.5*wheel_distance_*msg->angular.z;
-    pwm_l = msg->linear.x -0.5*wheel_distance_*msg->angular.z;
+    pwm_r = 255*(msg->linear.x +0.5*wheel_distance_*msg->angular.z);
+    pwm_l = 255*(msg->linear.x -0.5*wheel_distance_*msg->angular.z);
 
     // limit duty ratio 
     if (std::abs(pwm_r) > 255){
@@ -129,6 +129,8 @@ class TB6612 {
     }
     drive(TB6612::A, pwm_r);
     drive(TB6612::B, pwm_l);
+
+    // ROS_INFO("motor: %d,%d",pwm_r,pwm_l);
   }
 
 

@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
   ROS_INFO("TB6612 is working, A_IN1: %02d, A_IN2: %02d, A_PWM: %02d, B_IN1: %02d, B_IN2: %02d, B_PWM: %02d",
            pin_ain1, pin_ain2, pin_apwm, pin_bin1, pin_bin2, pin_bpwm);
 
-  ros::Subscriber sub = nh.subscribe("cmd_vel", 1000, &TB6612::twistCallback, &driver);
+  ros::Subscriber sub = nh.subscribe("tamiya1/cmd_vel", 1000, &TB6612::twistCallback, &driver);
 
   ros::spin();
   ROS_INFO("Finish driving.");

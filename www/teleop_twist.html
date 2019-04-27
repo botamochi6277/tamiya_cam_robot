@@ -47,12 +47,12 @@
                 });
                 this.ros.connect('ws://' + location.hostname + ':9090');
             },
-            send: function(vx,gx) {
+            send: function(vx,gz) {
                 // if (document.getElementById("comment").value.length == 0) return;
                 // var comment = document.getElementById("comment").value;
                 var pub = new ROSLIB.Topic({
                     ros: this.ros,
-                    name: '/cmd_vel',
+                    name: 'tamiya1/cmd_vel',
                     messageType: 'geometry_msgs/Twist'
                 });
                 // var vx =  document.getElementById('vx').innerHTML
@@ -70,8 +70,8 @@
                     }
                 });
                 pub.publish(vel);
-                document.getElementById('cmd').innerHTML = comment;
-                console.log(comment + 'is published. ');
+                // document.getElementById('cmd').innerHTML = comment;
+                // console.log(comment + 'is published. ');
                 // console.log('is publisded. ')
             }
         }

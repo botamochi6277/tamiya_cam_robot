@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="turtlesim" name="key1" type="turtle_teleop_key">
+    <remap from="/turtle1/cmd_vel" to="/tamiya1/cmd_vel"/>
+  </node>
+
+  <node pkg="tamiya_cam_robot" name="robo1" type="vel_listener" output="screen"></node>
+
+</launch>

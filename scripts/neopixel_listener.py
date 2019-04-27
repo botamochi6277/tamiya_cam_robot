@@ -1,7 +1,7 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import rospy
 from std_msgs.msg import UInt16MultiArray
-from piNeopixel import NeoPixel
 import time
 import pigpio
 
@@ -99,6 +99,7 @@ def listener():
         exit()
     num_pixels = 16
     pixels = NeoPixel(pi, n=num_pixels)
+    rospy.loginfo('Please input neopixel colors as hex-color code')
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

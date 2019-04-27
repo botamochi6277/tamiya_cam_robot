@@ -28,6 +28,12 @@ target_link_libraries(web_listener Threads::Threads)
 target_link_libraries(web_listener pigpiod_if2)
 add_dependencies(web_listener tamiya_cam_robot_generate_messages_cpp)
 
+# veb_listener
+add_executable(vel_listener src/vel_listener.cpp)
+target_link_libraries(vel_listener ${catkin_LIBRARIES})
+target_link_libraries(vel_listener Threads::Threads)
+target_link_libraries(vel_listener pigpiod_if2)
+add_dependencies(vel_listener tamiya_cam_robot_generate_messages_cpp)
 
 ## test
 add_executable(test_run src/test_run.cpp)

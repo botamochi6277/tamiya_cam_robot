@@ -178,3 +178,6 @@ roslaunch tamiya_cam_robot teleop.launch
 Please access `http://[RaspberryPi's IP address]:8085/tamiya_cam_robot/teleop.html`．
 
 
+
+<!-- rosrun turtlesim turtle_teleop_key /turtle1/cmd_vel:=/tamiya1/cmd_vel -->
+
