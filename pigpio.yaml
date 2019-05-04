@@ -16,12 +16,12 @@ pigpio: [
           "read"  , # BCM14(TX)
           "read"  , # BCM15(RX)
           "read"  , # BCM16
-          "A_IN1" , # BCM17
+          "A_PWM" , # BCM17
           "read"  , # BCM18
           "B_IN2" , # BCM19
           "read"  , # BCM20
           "read"  , # BCM21
-          "A_PWM" , # BCM22
+          "A_IN1" , # BCM22
           "read"  , # BCM23
           "read"  , # BCM24
           "read"  , # BCM25

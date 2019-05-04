@@ -64,4 +64,3 @@ int main(int argc, char **argv) {
   pigpio_stop(pi);
   return 0;
 }
-// %EndTag(FULLTEXT)%

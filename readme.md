@@ -34,23 +34,22 @@ This project connects wires according to a following table and a figure.
 
 | TB6612 | Other Device           |
 |--------|------------------------|
-| A_IN1  | Raspi-17               |
+| A_IN1  | Raspi-22               |
 | A_IN2  | Raspi-27               |
-| A_PWM  | Raspi-22               |
+| A_PWM  | Raspi-17               |
 | B_IN1  | Raspi-13               |
 | B_IN2  | Raspi-19               |
 | B_PWM  | Raspi-26               |
-| A01    | RMotor-BLUE            |
-| A02    | RMotor-YELLOW          |
+| A01    | RMotor-YELLOW          |
+| A02    | RMotor-BLUE            |
 | B01    | LMotor-BLUE            |
 | B02    | LMotor-YELLOW          |
-| VM     | Raspi-3V3              |
+| VM     | Alkaline-V+            |
+| VCC    | Raspi-3V3              |
 | STBY   | Raspi-3V3              |
 | GND    | Raspi-GND, Alkaline-V- |
 
 ![](img/raspi_motor_bb.png)
-
-<!-- MotorB, 5,6,13に変更 -->
 
 If you want to learn about TB6612, please read [a guide of SparkFun](https://learn.sparkfun.com/tutorials/tb6612fng-hookup-guide?_ga=2.166866110.1201478622.1514266488-1757053215.1500608008).
 
@@ -75,7 +74,7 @@ sudo apt-get install pigpio python-pigpio python3-pigpio
 
 
 We cannot generally run rosnode as root.
-On the other hand, only root can control Pi's GPIO.
+On the other hand, only root can control Pi GPIO.
 
 When you run pigpiod, a demon controlling GPIO as root, ROS can controll GPIO via pigpiod. 
 
@@ -89,7 +88,7 @@ Please read pin assignment.
 
 ```bash
 cd ~/catkin_ws
-rosparam read src/tamiya_cam_robot/pigpio.yaml
+rosparam load src/tamiya_cam_robot/pigpio.yaml
 ```
 
 Drive the motors!

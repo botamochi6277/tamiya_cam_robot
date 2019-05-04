@@ -34,21 +34,22 @@ TB6612は1つのモータにつき，2つのデジタル入力と1つのPWMで�
 
 | TB6612 | Other Device           |
 |--------|------------------------|
-| A_IN1  | Raspi-17               |
+| A_IN1  | Raspi-22               |
 | A_IN2  | Raspi-27               |
-| A_PWM  | Raspi-22               |
+| A_PWM  | Raspi-17               |
 | B_IN1  | Raspi-13               |
 | B_IN2  | Raspi-19               |
 | B_PWM  | Raspi-26               |
-| A01    | RMotor-BLUE            |
-| A02    | RMotor-YELLOW          |
+| A01    | RMotor-YELLOW          |
+| A02    | RMotor-BLUE            |
 | B01    | LMotor-BLUE            |
 | B02    | LMotor-YELLOW          |
-| VM     | Raspi-3V3              |
+| VM     | Alkaline-V+            |
+| VCC    | Raspi-3V3              |
 | STBY   | Raspi-3V3              |
 | GND    | Raspi-GND, Alkaline-V- |
 
-<!-- MotorB, 5,6,13に変更 -->
+![](img/raspi_motor_bb.png)
 
 SparkFunさんが[TB6612についての詳しく説明してくれている](https://learn.sparkfun.com/tutorials/tb6612fng-hookup-guide?_ga=2.166866110.1201478622.1514266488-1757053215.1500608008)ので，詳しく知りたい人はこちらを参考にして下さい．
 
@@ -80,7 +81,7 @@ sudo pigpiod
 続いて，ピンの割り当てを読み込みます．
 ```bash
 cd ~/catkin_ws
-rosparam read src/tamiya_cam_robot/pigpio.yaml
+rosparam load src/tamiya_cam_robot/pigpio.yaml
 ```
 
 続いて，モータを動かしていきます．

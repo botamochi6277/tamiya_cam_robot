@@ -15,7 +15,7 @@ class TB6612 {
   int pin_bin1_;
   int pin_bin2_;
   int pin_bpwm_;
-  double wheel_distance_; // distance between wheels
+  // double wheel_distance_; // distance between wheels
  public:
   static const bool A = 0;
   static const bool B = 1;
@@ -43,7 +43,7 @@ class TB6612 {
     set_mode(pi_, pin_bin2_, PI_OUTPUT);
     set_mode(pi_, pin_bpwm_, PI_OUTPUT);
 
-    wheel_distance_ = 0.103; //[m]
+    // wheel_distance_ = 0.103; //[m]
   }
 
   /**
@@ -112,8 +112,10 @@ class TB6612 {
    */
   void twistCallback(const geometry_msgs::Twist::ConstPtr& msg){
     static int pwm_r, pwm_l;
-    pwm_r = 255*(msg->linear.x +0.5*wheel_distance_*msg->angular.z);
-    pwm_l = 255*(msg->linear.x -0.5*wheel_distance_*msg->angular.z);
+    // pwm_r = 255*(msg->linear.x +0.5*wheel_distance_*msg->angular.z);
+    // pwm_l = 255*(msg->linear.x -0.5*wheel_distance_*msg->angular.z);
+    pwm_r = 255*(msg->linear.x + msg->angular.z);
+    pwm_l = 255*(msg->linear.x - msg->angular.z);
 
     // limit duty ratio 
     if (std::abs(pwm_r) > 255){

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import rospy
-from std_msgs.msg import UInt16MultiArray
+# from std_msgs.msg import UInt16MultiArray
+from geometry_msgs.msg import Twist
 import time
 import pigpio
 
@@ -19,8 +20,8 @@ class NeoPixel:
         self.h = self.pi.spi_open(channel, 6400000, flag)
 
         self.subscriber = rospy.Subscriber(
-            '/neopixels', UInt16MultiArray, self.callback)
-        self.message = UInt16MultiArray()
+            '/tamiya1/cmd_vel', Twist, self.callback)
+        self.message = Twist()
 
     def stop(self):
         for i in range(len(self.buf)):
@@ -78,8 +79,27 @@ class NeoPixel:
         time.sleep(100e-6)
 
     def callback(self, message):
-        for i in range(message.data.size):
-            self.set_color(i, message.data[i])
+        c_r = 0xdddddd
+        c_l = 0xdddddd
+
+        if (abs(message.linear.x) < 0.01) and abs(message.angular.z) < 0.01:
+            c_r = 0xff0000
+            c_l = 0xff0000
+        elif message.linear.x > 0.01:
+            c_r = 0x0000ff
+            c_l = 0x0000ff
+        elif message.linear.x < 0.01:
+            c_r = 0xffff00
+            c_l = 0xffff00
+        elif message.angular.z > 0.01:
+            c_r = 0x00ff00
+            c_l = 0x0000ff
+        elif message.angular.z < -0.01:
+            c_r = 0x0000ff
+            c_l = 0x00ff00
+
+        self.set_color(0, c_r)
+        self.set_color(1, c_l)
 
         self.show()
 
@@ -91,7 +111,7 @@ def listener():
     # anonymous=True flag means that rospy will choose a unique
     # name for our 'listener' node so that multiple listeners can
     # run simultaenously.
-    rospy.init_node('neopixel_listener', anonymous=True)
+    rospy.init_node('vel_color_listener', anonymous=True)
 
     pi = pigpio.pi()
 
@@ -99,7 +119,7 @@ def listener():
         exit()
     num_pixels = 16
     pixels = NeoPixel(pi, n=num_pixels)
-    rospy.loginfo('Please input neopixel colors as hex-color code')
+    # rospy.loginfo('Please input neopixel colors as hex-color code')
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
