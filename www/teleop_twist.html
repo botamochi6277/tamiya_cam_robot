@@ -3,6 +3,8 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="favicon.ico">
     <title>ROS WEB Teleoperater</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/all.min.css">
@@ -40,10 +42,11 @@
                     document.getElementById('state').innerHTML = "Error";
                 });
                 this.ros.on('connection', function(error) {
-                    document.getElementById('state').innerHTML = "Connect";
+                    document.getElementById('state').innerHTML = "Connected";
+                    document.getElementById('camera_image').src = 'http://' + location.hostname + ':8080/stream?topic=/image_raw&type=ros_compressed'
                 });
                 this.ros.on('close', function(error) {
-                    document.getElementById('state').innerHTML = "Close";
+                    document.getElementById('state').innerHTML = "Closed";
                 });
                 this.ros.connect('ws://' + location.hostname + ':9090');
             },
@@ -78,7 +81,6 @@
         Talker.init();
 
         window.onload = function() {
-            document.getElementById('camera_image').src = 'http://' + location.hostname + ':8080/stream?topic=/image_raw&type=ros_compressed'
             console.log();
         };
         window.onunload = function() {
@@ -89,7 +91,7 @@
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Tamiya Cam Robot Controller</a>
+            <a class="navbar-brand" href="#">Robot Controller</a>
 <!--             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -112,12 +114,14 @@
             </div> -->
         </nav>
     </header>
-    <main role="main" class="container">
+
+    <div class="container">
         <div class="row">
-            <div class="col-md-6 text-center text-light">
-                <img id="camera_image" class="img-fluid" src='' alt = 'web camera streamed image'></img>
+            <div class="col-sm-6 text-center text-light">
+                <!-- CAMERA IMAGE -->
+                <img id="camera_image" class="img-fluid" src='img/disconnected.png' alt = 'web camera streamed image'></img>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <!-- JOY -->
                 <!-- M0: left motor, M1: right motor -->
                 <table class="table table-borderless ">
@@ -205,11 +209,13 @@
                 <!-- End of JOY -->
             </div>
         </div>
-    </main>
+    </div>
+
+ 
     <footer class="footer navbar-dark bg-dark">
         <div class="container">
             <!-- <span class="text-muted">Place sticky footer content here.</span> -->
-            <p class="text-light ">Status： <label id="state">Disconnect</label></p>
+            <p class="text-light ">Status： <label id="state">Disconnected</label></p>
         </div>
     </footer>
     <script src="js/bootstrap.min.js"></script>

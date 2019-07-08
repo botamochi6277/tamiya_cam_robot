@@ -35,9 +35,16 @@ target_link_libraries(vel_listener Threads::Threads)
 target_link_libraries(vel_listener pigpiod_if2)
 add_dependencies(vel_listener tamiya_cam_robot_generate_messages_cpp)
 
-## test
+## test_run
 add_executable(test_run src/test_run.cpp)
 target_link_libraries(test_run ${catkin_LIBRARIES})
 target_link_libraries(test_run Threads::Threads)
 target_link_libraries(test_run pigpiod_if2)
 add_dependencies(test_run tamiya_cam_robot_generate_messages_cpp)
+
+## rainbow_talker
+add_executable(rainbow_talker src/rainbow_talker)
+target_link_libraries(rainbow_talker ${catkin_LIBRARIES})
+target_link_libraries(rainbow_talker Threads::Threads)
+target_link_libraries(rainbow_talker pigpiod_if2)
+add_dependencies(rainbow_talker tamiya_cam_robot_generate_messages_cpp)

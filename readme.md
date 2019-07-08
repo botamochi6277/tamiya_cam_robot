@@ -70,7 +70,7 @@ Please install [pigpio](http://abyz.me.uk/rpi/pigpio/) with following commandsï¼
 ```bash
 sudo apt-get update
 sudo apt-get install pigpio python-pigpio python3-pigpio
-``
+```
 
 
 We cannot generally run rosnode as root.
@@ -121,7 +121,7 @@ git clone https://github.com/GT-RAIL/async_web_server_cpp.git
 cd ../
 catkin_make
 ```
-ï¼Ž
+
 Please run a node publishing a camera image.
 
 ```bash

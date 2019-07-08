@@ -79,6 +79,7 @@ sudo pigpiod
 ```
 
 続いて，ピンの割り当てを読み込みます．
+
 ```bash
 cd ~/catkin_ws
 rosparam load src/tamiya_cam_robot/pigpio.yaml
@@ -118,6 +119,7 @@ rostopic list
 ```
 
 この時，次のようにトピック一覧が出てきます．
+
 ```
 /camera_info
 /image_raw
@@ -143,6 +145,8 @@ rosrun web_video_server web_video_server
 
 RaspberryPiからは[http://localhost:8080/stream?topic=/image_raw](http://localhost:8080/stream?topic=/image_raw)からもアクセスできます．
 
+http://ubiquityrobot.local:8085/tamiya_cam_robot/teleop_twist.html
+
 ## Teleoperation
 
 `teleop.launch`を起動します．
@@ -156,4 +160,5 @@ roslaunch tamiya_cam_robot teleop.launch
 
 この状態で`http://[RaspberryPiのIPアドレス]:8085/tamiya_cam_robot/teleop.html`にブラウザからアクセスします．
 
+[http://ubiquityrobot.local:8085/tamiya_cam_robot/teleop.html](http://ubiquityrobot.local:8085/tamiya_cam_robot/teleop.html)からアクセスすることもできます．
 

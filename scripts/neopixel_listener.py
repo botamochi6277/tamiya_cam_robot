@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import rospy
-from std_msgs.msg import UInt16MultiArray
+from std_msgs.msg import UInt32MultiArray
 import time
 import pigpio
 
@@ -19,8 +19,8 @@ class NeoPixel:
         self.h = self.pi.spi_open(channel, 6400000, flag)
 
         self.subscriber = rospy.Subscriber(
-            '/neopixels', UInt16MultiArray, self.callback)
-        self.message = UInt16MultiArray()
+            '/neopixels', UInt32MultiArray, self.callback)
+        self.message = UInt32MultiArray()
 
     def stop(self):
         for i in range(len(self.buf)):
@@ -50,35 +50,18 @@ class NeoPixel:
                 (c & 0x00ff00) << 8) | ((c & 0x0000ff))
             # print('#{:06x}'.format(d))
 
-            # WS2812
-            #         0.35us   0.8us    (+-150ns)
-            # 0:     |^^^^^|..........|
-            #            0.7us   0.6us  (+-150ns)
-            # 1:     |^^^^^^^^^^|.....|
-            #
-            # 8bit mode, 6400000Hz
-            # t = 0.15625us
-            #         0.35us   0.8us    (+-150ns)
-            # 0:     |^^^|.....|
-            #
-            #            0.7us   0.6us  (+-150ns)
-            # 1:     |^^^^|....|
-            # 0:11100000,0xE0 -> [0.46875, 0.78125] us
-            # 1:11110000,0xF0 -> [0.625, 0.625] us
-            # 1:11111000,0xF8 -> [0.78125, 0.46875] us
-            # MSB なので，上位ビットから変換
             for j in range(24):
                 # 2進数の1桁を抽出して比較
                 if ((d >> (23 - j)) & 0b1) == 0b00:
                     self.buf[24 * i + j] = 0xE0
                 else:
-                    self.buf[24 * i + j] = 0xF0
+                    self.buf[24 * i + j] = 0xF8
 
         self.pi.spi_write(self.h, self.buf)
         time.sleep(100e-6)
 
     def callback(self, message):
-        for i in range(message.data.size):
+        for i in range(len(message.data)):
             self.set_color(i, message.data[i])
 
         self.show()

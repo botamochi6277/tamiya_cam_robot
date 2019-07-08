@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # The MIT License (MIT)
 #
 # Copyright (c) 2016 Damien P. George
@@ -63,14 +66,30 @@ class NeoPixel:
             # 1:     |^^^^|....|
             # 0:11100000,0xE0 -> [0.46875, 0.78125] us
             # 1:11110000,0xF0 -> [0.625, 0.625] us
-            # 1:11111000,0xF8 -> [0.78125, 0.46875] us
+
+            # WS2812B
+            #         0.40us   0.85us    (+-150ns)
+            # 0:     |^^^^^|..........|
+            #            0.8us   0.45us  (+-150ns)
+            # 1:     |^^^^^^^^^^|.....|
+            #
+            # 8bit mode, 6400000Hz
+            # t = 0.15625us
+            #         0.35us   0.8us    (+-150ns)
+            # 0:     |^^^|.....|
+            #
+            #            0.7us   0.6us  (+-150ns)
+            # 1:     |^^^^|....|
+            # 0:11100000,0xE0 -> [468.75 781.25] ns
+            # 1:11110000,0xF8 -> [781.25 468.75] ns
+
             # MSB なので，上位ビットから変換
             for j in range(24):
                 # 2進数の1桁を抽出して比較
                 if ((d >> (23 - j)) & 0b1) == 0b00:
                     self.buf[24 * i + j] = 0xE0
                 else:
-                    self.buf[24 * i + j] = 0xF0
+                    self.buf[24 * i + j] = 0xF8
 
         self.pi.spi_write(self.h, self.buf)
         time.sleep(100e-6)
