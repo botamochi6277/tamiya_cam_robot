@@ -1,0 +1,10 @@
+<launch>
+
+  <node pkg="web_video_server" name="server1" type="web_video_server"></node>
+
+  <include file="$(find roswww)/launch/roswww.launch" /> 
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
+
+  <node pkg="sound_pipes" name="player" type="player" output="screen"></node>
+
+</launch>

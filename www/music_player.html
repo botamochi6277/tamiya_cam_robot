@@ -4,8 +4,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="favicon.ico">
-    <title>ROS WEB Teleoperater</title>
+    <title>ROS WEB MUSIC PLAYER</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/all.min.css">
     <style>
@@ -25,7 +24,7 @@
     <script src="js/eventemitter2.min.js"></script>
     <script src="js/roslib.min.js"></script>
     <script type="text/javascript">
-    console.log('Teleop is starting!')
+    console.log('Music Player is starting!')
     </script>
 </head>
 
@@ -42,47 +41,31 @@
                     document.getElementById('state').innerHTML = "Error";
                 });
                 this.ros.on('connection', function(error) {
-                    document.getElementById('state').innerHTML = "Connected";
-                    document.getElementById('camera_image').src = 'http://' + location.hostname + ':8080/stream?topic=/image_raw&type=ros_compressed'
+                    document.getElementById('state').innerHTML = "Connect";
                 });
                 this.ros.on('close', function(error) {
-                    document.getElementById('state').innerHTML = "Closed";
+                    document.getElementById('state').innerHTML = "Close";
                 });
                 this.ros.connect('ws://' + location.hostname + ':9090');
             },
-            send: function(vx,gz) {
+            send: function(comment) {
                 // if (document.getElementById("comment").value.length == 0) return;
                 // var comment = document.getElementById("comment").value;
                 var pub = new ROSLIB.Topic({
                     ros: this.ros,
-                    name: 'tamiya1/cmd_vel',
-                    messageType: 'geometry_msgs/Twist'
+                    name: '/sound_pipes/sound',
+                    messageType: 'std_msgs/String'
                 });
-                // var vx =  document.getElementById('vx').innerHTML
-                // var gz =  document.getElementById('gz').innerHTML
-                var vel = new ROSLIB.Message({
-                    linear:{
-                        x:vx,
-                        y:0,
-                        z:0
-                    },
-                    angular:{
-                        x:0,
-                        y:0,
-                        z:gz
-                    }
-                });
-                pub.publish(vel);
-                // document.getElementById('cmd').innerHTML = comment;
-                // console.log(comment + 'is published. ');
+
+                var str = new ROSLIB.Message({ data: comment });
+                pub.publish(str);
+                document.getElementById('cmd').innerHTML = comment;
+                console.log(comment + 'is published. ');
                 // console.log('is publisded. ')
             }
         }
         Talker.init();
 
-        window.onload = function() {
-            console.log();
-        };
         window.onunload = function() {
             Talker.ros.close();
         };
@@ -91,115 +74,92 @@
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Robot Controller</a>
-<!--             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
-                <form class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div> -->
+            <a class="navbar-brand" href="#">Music Player</a>
         </nav>
     </header>
-
-    <div class="container">
+    <main role="main" class="container">
         <div class="row">
-            <div class="col-sm-6 text-center text-light">
-                <!-- CAMERA IMAGE -->
-                <img id="camera_image" class="img-fluid" src='img/disconnected.png' alt = 'web camera streamed image'></img>
+            <div class="col-md-6 text-center text-light">
+                <img id="camera_image" class="img-fluid" src='img/Music_icon.png' alt = 'image'></img>
             </div>
-            <div class="col-sm-6">
-                <!-- JOY -->
-                <!-- M0: left motor, M1: right motor -->
+            <div class="col-md-6">
+                <!-- Music Buttons -->
                 <table class="table table-borderless ">
                     <tbody>
                         <tr>
-                            <!-- Left Up -->
+                            <!-- 01 -->
                             <td>
-                                <form action="javascript:Talker.send(0.5,0.5);" id="ui">
+                                <form action="javascript:Talker.send('/home/ubuntu/Music/0fc.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        <i class="fas fa-reply fa-lg"></i>
+                                        01
                                     </button>
                                 </form>
                             </td>
-                            <!-- Up -->
+                            <!-- 02 -->
                             <td>
-                                <form action="javascript:Talker.send(1,0);" id="ui">
+                                <form action="javascript:Talker.send('/home/ubuntu/Music/1ac.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        <i class="fas fa-angle-up fa-lg"></i>
+                                        02
                                     </button>
                                 </form>
                             </td>
-                            <!-- Right Up -->
+                            <!-- 03 -->
                             <td>
-                                <form action="javascript:Talker.send(0.5,-0.5);" id="ui">
+                                <form action="javascript:Talker.send('/home/ubuntu/Music/02c.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        <i class="fas fa-reply fa-flip-horizontal fa-lg"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <!-- Left Turn -->
-                                <form action="javascript:Talker.send(0,1);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        <i class="fas fa-angle-left fa-lg"></i>
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                <!-- Pose  -->
-                                <form action="javascript:Talker.send(0,0);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        <i class="fas fa-circle fa-lg"></i>
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                <!-- Right Turn -->
-                                <form action="javascript:Talker.send(0,-1);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        <i class="fas fa-angle-right fa-lg"></i>
+                                        03
                                     </button>
                                 </form>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <!-- Left Down -->
-                                <form action="javascript:Talker.send(-0.5,-0.5);" id="ui">
+                                <!-- 04 -->
+                                <form action="javascript:Talker.send('/home/ubuntu/Music/3ac.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        <i class="fas fa-reply fa-flip-vertical fa-lg"></i>
+                                        04
                                     </button>
                                 </form>
                             </td>
                             <td>
-                                <!-- Down -->
-                                <form action="javascript:Talker.send(-1,0);" id="ui">
+                                <!-- 05  -->
+                                <form action="javascript:Talker.send('/home/ubuntu/Music/3ec.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        <i class="fas fa-angle-down fa-lg"></i>
+                                        05
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- 06 -->
+                                <form action="javascript:Talker.send('/home/ubuntu/Music/06c.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        06
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!-- 07 -->
+                                <form action="javascript:Talker.send('/home/ubuntu/Music/15c.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        07
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- 08 -->
+                                <form action="javascript:Talker.send('/home/ubuntu/Music/23c.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        08
                                     </button>
                                 </form>
                             </td>
                             <td>
                                 <!-- Right Down -->
-                                <form action="javascript:Talker.send(-0.5,0.5);" id="ui">
+                                <form action="javascript:Talker.send('/home/ubuntu/Music/handbell-kirakira.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        <i class="fas fa-reply fa-flip-horizontal fa-flip-vertical fa-lg"></i>
+                                        09
                                     </button>
                                 </form>
                             </td>
@@ -209,13 +169,11 @@
                 <!-- End of JOY -->
             </div>
         </div>
-    </div>
-
- 
+    </main>
     <footer class="footer navbar-dark bg-dark">
         <div class="container">
             <!-- <span class="text-muted">Place sticky footer content here.</span> -->
-            <p class="text-light ">Status： <label id="state">Disconnected</label></p>
+            <p class="text-light "><label id="cmd">---</label> |Status： <label id="state">Disconnect</label></p>
         </div>
     </footer>
     <script src="js/bootstrap.min.js"></script>
