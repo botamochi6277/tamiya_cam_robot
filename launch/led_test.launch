@@ -1,0 +1,7 @@
+<launch>
+
+  <node pkg="tamiya_cam_robot" name="listener" type="neopixel_listener.py" output="screen"></node>
+
+  <node pkg="tamiya_cam_robot" name="talker" type="rainbow_talker" output="screen"></node>
+
+</launch>

@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ROS WEB LED TUNER</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- <link rel="stylesheet" href="css/cover.css" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
+    <script src="js/eventemitter2.min.js"></script>
+    <script src="js/roslib.min.js"></script>
+    <script type="text/javascript">
+    console.log('Music Player is starting!')
+    </script>
+</head>
+
+<body class="text-center">
+    <script type="text/javascript">
+    if (!Talker) {
+        console.log('Making ROS taker');
+        var Talker = {
+            ros: null,
+            name: "",
+            init: function() {
+                this.ros = new ROSLIB.Ros();
+                this.ros.on('error', function(error) {
+                    document.getElementById('state').innerHTML = "Error";
+                });
+                this.ros.on('connection', function(error) {
+                    document.getElementById('state').innerHTML = "Connect";
+                });
+                this.ros.on('close', function(error) {
+                    document.getElementById('state').innerHTML = "Close";
+                });
+                this.ros.connect('ws://' + location.hostname + ':9090');
+            },
+            send: function(comment) {
+                // if (document.getElementById("comment").value.length == 0) return;
+                // var comment = document.getElementById("comment").value;
+                var pub = new ROSLIB.Topic({
+                    ros: this.ros,
+                    name: '/neopixels',
+                    messageType: 'std_msgs/UInt32MultiArray'
+                });
+
+                var str = new ROSLIB.Message({ data: comment });
+                pub.publish(str);
+                document.getElementById('cmd').innerHTML = comment;
+                console.log(comment + 'is published. ');
+                // console.log('is publisded. ')
+            }
+        }
+        Talker.init();
+
+        window.onunload = function() {
+            Talker.ros.close();
+        };
+    }
+    </script>
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#">LED Tuner</a>
+        </nav>
+    </header>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-6 text-center text-light">
+                <img id="camera_image" class="img-fluid" src='img/colors.png' alt = 'image'></img>
+            </div>
+            <div class="col-md-6">
+                <!-- LED Buttons -->
+                <table class="table table-borderless ">
+                    <tbody>
+                        <tr>
+                            <!-- R -->
+                            <td>
+                                <form action="javascript:Talker.send([0xff0000,0xff0000]);" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        RED
+                                    </button>
+                                </form>
+                            </td>
+                            <!-- G -->
+                            <td>
+                                <form action="javascript:Talker.send([0x00ff00,0x00ff00]);" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        GREEN
+                                    </button>
+                                </form>
+                            </td>
+                            <!-- B -->
+                            <td>
+                                <form action="javascript:Talker.send([0x0000ff,0x0000ff]);" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        BLUE
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!-- 04 -->
+                                <form action="javascript:Talker.send([0xffff00,0xffff00]);" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        YELLOW
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- 05  -->
+                                <form action="javascript:Talker.send([0x00ffff,0x00ffff]);" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        CYAN
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- 06 -->
+                                <form action="javascript:Talker.send([0xff00ff,0xff00ff]);" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        MAGENTA
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!-- 07 -->
+                                <form action="javascript:Talker.send([0xff00ff,0x00ffff]);" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        M - C
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- 08 -->
+                                <form action="javascript:Talker.send([0x00ffff,0xffff00]);" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        C - Y
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- Right Down -->
+                                <form action="javascript:Talker.send([0xffffff,0xffffff]);" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        WHITE
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- End of JOY -->
+            </div>
+        </div>
+    </main>
+    <footer class="footer navbar-dark bg-dark">
+        <div class="container">
+            <!-- <span class="text-muted">Place sticky footer content here.</span> -->
+            <p class="text-light "><label id="cmd">---</label> |Status： <label id="state">Disconnect</label></p>
+        </div>
+    </footer>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>

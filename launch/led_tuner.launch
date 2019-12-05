@@ -1,0 +1,10 @@
+<launch>
+
+  <node pkg="web_video_server" name="server1" type="web_video_server"></node>
+
+  <include file="$(find roswww)/launch/roswww.launch" /> 
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
+
+  <node pkg="tamiya_cam_robot" name="listener" type="neopixel_listener.py" output="screen"></node>
+
+</launch>
