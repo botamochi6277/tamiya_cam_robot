@@ -35,6 +35,13 @@ target_link_libraries(vel_listener Threads::Threads)
 target_link_libraries(vel_listener pigpiod_if2)
 add_dependencies(vel_listener tamiya_cam_robot_generate_messages_cpp)
 
+## wheels_listener
+add_executable(wheels_listener src/wheels_listener)
+target_link_libraries(wheels_listener ${catkin_LIBRARIES})
+target_link_libraries(wheels_listener Threads::Threads)
+target_link_libraries(wheels_listener pigpiod_if2)
+add_dependencies(wheels_listener tamiya_cam_robot_generate_messages_cpp)
+
 ## test_run
 add_executable(test_run src/test_run.cpp)
 target_link_libraries(test_run ${catkin_LIBRARIES})

@@ -8,10 +8,12 @@
 
 class TB6612 {
  private:
-  int pi_;
+  int pi_; // pigpio
+  // Motor A
   int pin_ain1_;
   int pin_ain2_;
   int pin_apwm_;
+  // Motor B
   int pin_bin1_;
   int pin_bin2_;
   int pin_bpwm_;

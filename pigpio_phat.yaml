@@ -1,0 +1,30 @@
+pigpio: [
+          "id_sd" , # BCM0(ID_SD)
+          "is_sc" , # BCM1(ID_SC)
+          "sda"   , # BCM2(SDA)
+          "scl"   , # BCM3(SCL)
+          "clk"   , # BCM4(GPCLK0)
+          "read"  , # BCM5
+          "read"  , # BCM6
+          "read"  , # BCM7(CE1)
+          "read"  , # BCM8(CE0)
+          "read"  , # BCM9(MISO)
+          "read"  , # BCM10(MOSI)
+          "read"  , # BCM11(SCK)
+          "read"  , # BCM12
+          "read" , # BCM13
+          "read"  , # BCM14(TX)
+          "read"  , # BCM15(RX)
+          "read"  , # BCM16
+          "A_IN1" , # BCM17
+          "A_IN2" , # BCM18
+          "read" , # BCM19
+          "read"  , # BCM20
+          "read"  , # BCM21
+          "B_IN2" , # BCM22
+          "read"  , # BCM23
+          "read"  , # BCM24
+          "read"  , # BCM25
+          "read" , # BCM26
+          "B_IN1"   # BCM27
+]
