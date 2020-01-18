@@ -11,8 +11,8 @@ class Servo {
   int pin_;
 
   // Angle Setting
-  int min_angle_ = -90;
-  int max_angle_ = 90;
+  float min_angle_ = -90.0;
+  float max_angle_ = 90.0;
 
   // Pulse Width Setting
   int min_width_ = 500;
@@ -33,8 +33,12 @@ class Servo {
     // PWM Frequency : 50Hz(20 ms)
     // pulsewidth 500-2500 [us]
     // SG92R : 500-2400 [us]
-    unsigned int width = (angle - min_angle_) * (max_width_ - min_width_) / (max_angle_ - min_angle_) + min_width_;
+    int width = (angle - min_angle_) * (max_width_ - min_width_) / (max_angle_ - min_angle_) + min_width_;
     set_servo_pulsewidth(pi_, pin_, width);
+  }
+
+  void sleep(){
+    set_servo_pulsewidth(pi_, pin_, 0);
   }
 
   void setAngleRange(int minVal, int maxVal) {
@@ -59,19 +63,19 @@ int main(int argc, char const *argv[]) {
     return -1;
   }
 
-  Servo myservo(pi, 25);
+  Servo myservo(pi, 4);
 
   // Sweeeeeeeeeeeeeeeeeeeeeeeeeeep
-  for (int angle = -90; angle < 90; ++angle) {
+  for (int angle = -80; angle < 80; ++angle) {
     myservo.write(angle);
-    std::this_thread::sleep_for(std::chrono::microseconds(15));
+    std::this_thread::sleep_for(std::chrono::milliseconds(15));
   }
 
-  for (int angle = 90; angle > -90; --angle) {
+  for (int angle = 80; angle > -80; --angle) {
     myservo.write(angle);
-    std::this_thread::sleep_for(std::chrono::microseconds(15));
+    std::this_thread::sleep_for(std::chrono::milliseconds(15));
   }
-
+  myservo.sleep();
   std::this_thread::sleep_for(std::chrono::seconds(1));
   pigpio_stop(pi);
 

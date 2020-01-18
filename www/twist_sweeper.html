@@ -47,10 +47,11 @@
                 });
                 this.ros.on('close', function(error) {
                     document.getElementById('state').innerHTML = "Closed";
+                    document.getElementById('camera_image').src = "img/disconnected.png";
                 });
                 this.ros.connect('ws://' + location.hostname + ':9090');
             },
-            send: function(vx,gz) {
+            sendTwist: function(vx, gz) {
                 // if (document.getElementById("comment").value.length == 0) return;
                 // var comment = document.getElementById("comment").value;
                 var pub = new ROSLIB.Topic({
@@ -61,21 +62,50 @@
                 // var vx =  document.getElementById('vx').innerHTML
                 // var gz =  document.getElementById('gz').innerHTML
                 var vel = new ROSLIB.Message({
-                    linear:{
-                        x:vx,
-                        y:0,
-                        z:0
+                    linear: {
+                        x: vx,
+                        y: 0,
+                        z: 0
                     },
-                    angular:{
-                        x:0,
-                        y:0,
-                        z:gz
+                    angular: {
+                        x: 0,
+                        y: 0,
+                        z: gz
                     }
                 });
                 pub.publish(vel);
                 // document.getElementById('cmd').innerHTML = comment;
                 // console.log(comment + 'is published. ');
                 // console.log('is publisded. ')
+            },
+            play: function(music) {
+                // if (document.getElementById("music").value.length == 0) return;
+                // var music = document.getElementById("music").value;
+                var pub = new ROSLIB.Topic({
+                    ros: this.ros,
+                    name: '/sound_pipes/sound',
+                    messageType: 'std_msgs/String'
+                });
+
+                var str = new ROSLIB.Message({ data: music });
+                pub.publish(str);
+                document.getElementById('cmd').innerHTML = music;
+                console.log(music + 'is published. ');
+                // console.log('is publisded. ')
+            },
+            driveHead: function(angle) {
+                // if (document.getElementById("angle").value.length == 0) return;
+                // var angle = document.getElementById("angle").value;
+                var pub = new ROSLIB.Topic({
+                    ros: this.ros,
+                    name: '/tamiya1/head',
+                    messageType: 'std_msgs/Float32'
+                });
+
+                var str = new ROSLIB.Message({ data: parseFloat(angle) });
+                pub.publish(str);
+                // document.getElementById('cmd').innerHTML = angle;
+                // console.log( "head published "+ angle);
             }
         }
         Talker.init();
@@ -91,45 +121,25 @@
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Robot Controller</a>
-<!--             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
-                <form class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div> -->
+            <a class="navbar-brand" href="#"> <span class="fas fa-robot"></span> Robot Controller</a>
         </nav>
     </header>
-
     <div class="container">
         <div class="row">
             <div class="col-sm-6 text-center text-light">
                 <!-- CAMERA IMAGE -->
-                <img id="camera_image" class="img-fluid" src='img/disconnected.png' alt = 'web camera streamed image'></img>
+                <img id="camera_image" class="img-fluid" src='img/disconnected.png' alt='web camera streamed image'></img>
             </div>
             <div class="col-sm-6">
                 <!-- JOY -->
+                <h5>Car</h5>
                 <!-- M0: left motor, M1: right motor -->
                 <table class="table table-borderless ">
                     <tbody>
                         <tr>
                             <!-- Left Up -->
                             <td>
-                                <form action="javascript:Talker.send(0.5,0.5);" id="ui">
+                                <form action="javascript:Talker.sendTwist(0.5,0.5);" id="carLeftUp">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-reply fa-lg"></i>
                                     </button>
@@ -137,7 +147,7 @@
                             </td>
                             <!-- Up -->
                             <td>
-                                <form action="javascript:Talker.send(1,0);" id="ui">
+                                <form action="javascript:Talker.sendTwist(1,0);" id="carUp">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-angle-up fa-lg"></i>
                                     </button>
@@ -145,7 +155,7 @@
                             </td>
                             <!-- Right Up -->
                             <td>
-                                <form action="javascript:Talker.send(0.5,-0.5);" id="ui">
+                                <form action="javascript:Talker.sendTwist(0.5,-0.5);" id="carRightUp">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-reply fa-flip-horizontal fa-lg"></i>
                                     </button>
@@ -155,15 +165,15 @@
                         <tr>
                             <td>
                                 <!-- Left Turn -->
-                                <form action="javascript:Talker.send(0,1);" id="ui">
+                                <form action="javascript:Talker.sendTwist(0,1);" id="carLeftTurn">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-angle-left fa-lg"></i>
                                     </button>
                                 </form>
                             </td>
                             <td>
-                                <!-- Pose  -->
-                                <form action="javascript:Talker.send(0,0);" id="ui">
+                                <!-- Stop  -->
+                                <form action="javascript:Talker.sendTwist(0,0);" id="carStop">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-circle fa-lg"></i>
                                     </button>
@@ -171,7 +181,7 @@
                             </td>
                             <td>
                                 <!-- Right Turn -->
-                                <form action="javascript:Talker.send(0,-1);" id="ui">
+                                <form action="javascript:Talker.sendTwist(0,-1);" id="carRightTurn">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-angle-right fa-lg"></i>
                                     </button>
@@ -181,7 +191,7 @@
                         <tr>
                             <td>
                                 <!-- Left Down -->
-                                <form action="javascript:Talker.send(-0.5,-0.5);" id="ui">
+                                <form action="javascript:Talker.sendTwist(-0.5,-0.5);" id="carLeftDown">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-reply fa-flip-vertical fa-lg"></i>
                                     </button>
@@ -189,7 +199,7 @@
                             </td>
                             <td>
                                 <!-- Down -->
-                                <form action="javascript:Talker.send(-1,0);" id="ui">
+                                <form action="javascript:Talker.sendTwist(-1,0);" id="carDown">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-angle-down fa-lg"></i>
                                     </button>
@@ -197,7 +207,7 @@
                             </td>
                             <td>
                                 <!-- Right Down -->
-                                <form action="javascript:Talker.send(-0.5,0.5);" id="ui">
+                                <form action="javascript:Talker.sendTwist(-0.5,0.5);" id="carRightDown">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-reply fa-flip-horizontal fa-flip-vertical fa-lg"></i>
                                     </button>
@@ -207,11 +217,70 @@
                     </tbody>
                 </table>
                 <!-- End of JOY -->
+                <h5> Music </h5>
+                <!-- Music Buttons -->
+                <table class="table table-borderless ">
+                    <tbody>
+                        <tr>
+                            <!-- 01 -->
+                            <td>
+                                <form action="javascript:MusicTalker.play('/home/ubuntu/Music/0fc.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        <i class="fas fa-music"></i> 01
+                                    </button>
+                                </form>
+                            </td>
+                            <!-- 02 -->
+                            <td>
+                                <form action="javascript:MusicTalker.play('/home/ubuntu/Music/1ac.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        <i class="fas fa-music"></i> 02
+                                    </button>
+                                </form>
+                            </td>
+                            <!-- 03 -->
+                            <td>
+                                <form action="javascript:MusicTalker.play('/home/ubuntu/Music/02c.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                        <i class="fas fa-music"></i> 03
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Servos -->
+                <h5> Servos </h5>
+                <div class="row">
+                    <div class="col-sm">
+                        <form>
+                            <div class="form-group">
+                                <label for="leftArm">L-Arm</label>
+                                <input id="leftArm" class="custom-range" type="range" name="range" min="-90" max="90"><span id="leftArmVal">0</span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm">
+                        <form>
+                            <div class="form-group">
+                                <label for="head">Head</label>
+                                <input id="head" class="custom-range" type="range" name="range" min="-90" max="90"><span id="headVal">0</span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm">
+                        <form>
+                            <div class="form-group">
+                                <label for="rightArm">R-Arm</label>
+                                <input id="rightArm" class="custom-range" type="range" name="range" min="-90" max="90"><span id="rightArmVal">0</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
- 
+     <!-- Footer -->
     <footer class="footer navbar-dark bg-dark">
         <div class="container">
             <!-- <span class="text-muted">Place sticky footer content here.</span> -->
@@ -221,6 +290,40 @@
     <script src="js/jquery-3.2.1.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script type="text/javascript">
+    // sliders
+    var leftArm = document.getElementById('leftArm');
+    var rightArm = document.getElementById('rightArm');
+    var head = document.getElementById('head');
+
+    // vals display
+    var valueLeftArm = document.getElementById('leftArmVal');
+    var valueRightArm = document.getElementById('rightArmVal');
+    var valueHead = document.getElementById('headVal');
+
+    // add events to sliders
+    console.log('Set Servo Events!')
+    // touchmove event はタッチスクリーンじゃないとうごかないか？
+    leftArm.addEventListener('input', handleServoChange);
+    rightArm.addEventListener('input', handleServoChange);
+    head.addEventListener('input', handleServoChange);
+
+    function handleServoChange(ev) {
+        // console.log('Servos is changeing!')
+
+        // update values in the page
+        if (ev.target.id == 'leftArm') {
+            valueLeftArm.innerText = ev.target.value;
+        } else if (ev.target.id == 'rightArm') {
+            valueRightArm.innerText = ev.target.value;
+        } else if (ev.target.id == 'head') {
+            valueHead.innerText = ev.target.value;
+            if (Talker) {
+                Talker.driveHead(ev.target.value);
+            }
+        }
+    }
+    </script>
 </body>
 
 </html>

@@ -30,9 +30,9 @@
 
 <body class="text-center">
     <script type="text/javascript">
-    if (!Talker) {
+    if (!MusicTalker) {
         console.log('Making ROS taker');
-        var Talker = {
+        var MusicTalker = {
             ros: null,
             name: "",
             init: function() {
@@ -64,10 +64,10 @@
                 // console.log('is publisded. ')
             }
         }
-        Talker.init();
+        MusicTalker.init();
 
         window.onunload = function() {
-            Talker.ros.close();
+            MusicTalker.ros.close();
         };
     }
     </script>
@@ -89,25 +89,25 @@
                         <tr>
                             <!-- 01 -->
                             <td>
-                                <form action="javascript:Talker.send('/home/ubuntu/Music/0fc.mp3');" id="ui">
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/0fc.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        01
+                                       <i class="fas fa-music"></i> 01
                                     </button>
                                 </form>
                             </td>
                             <!-- 02 -->
                             <td>
-                                <form action="javascript:Talker.send('/home/ubuntu/Music/1ac.mp3');" id="ui">
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/1ac.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        02
+                                       <i class="fas fa-music"></i> 02
                                     </button>
                                 </form>
                             </td>
                             <!-- 03 -->
                             <td>
-                                <form action="javascript:Talker.send('/home/ubuntu/Music/02c.mp3');" id="ui">
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/02c.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        03
+                                       <i class="fas fa-music"></i> 03
                                     </button>
                                 </form>
                             </td>
@@ -115,25 +115,25 @@
                         <tr>
                             <td>
                                 <!-- 04 -->
-                                <form action="javascript:Talker.send('/home/ubuntu/Music/3ac.mp3');" id="ui">
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/3ac.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        04
+                                      <i class="fas fa-music"></i>  04
                                     </button>
                                 </form>
                             </td>
                             <td>
                                 <!-- 05  -->
-                                <form action="javascript:Talker.send('/home/ubuntu/Music/3ec.mp3');" id="ui">
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/3ec.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        05
+                                      <i class="fas fa-music"></i>  05
                                     </button>
                                 </form>
                             </td>
                             <td>
                                 <!-- 06 -->
-                                <form action="javascript:Talker.send('/home/ubuntu/Music/06c.mp3');" id="ui">
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/06c.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        06
+                                      <i class="fas fa-music"></i>  06
                                     </button>
                                 </form>
                             </td>
@@ -141,25 +141,25 @@
                         <tr>
                             <td>
                                 <!-- 07 -->
-                                <form action="javascript:Talker.send('/home/ubuntu/Music/15c.mp3');" id="ui">
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/15c.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        07
+                                       <i class="fas fa-music"></i> 07
                                     </button>
                                 </form>
                             </td>
                             <td>
                                 <!-- 08 -->
-                                <form action="javascript:Talker.send('/home/ubuntu/Music/23c.mp3');" id="ui">
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/23c.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        08
+                                       <i class="fas fa-music"></i> 08
                                     </button>
                                 </form>
                             </td>
                             <td>
                                 <!-- Right Down -->
-                                <form action="javascript:Talker.send('/home/ubuntu/Music/handbell-kirakira.mp3');" id="ui">
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/handbell-kirakira.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
-                                        09
+                                       <i class="fas fa-music"></i> 09
                                     </button>
                                 </form>
                             </td>
@@ -176,7 +176,9 @@
             <p class="text-light "><label id="cmd">---</label> |Status： <label id="state">Disconnect</label></p>
         </div>
     </footer>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
 </body>
 
 </html>

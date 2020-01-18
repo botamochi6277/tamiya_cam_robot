@@ -55,3 +55,30 @@ target_link_libraries(rainbow_talker ${catkin_LIBRARIES})
 target_link_libraries(rainbow_talker Threads::Threads)
 target_link_libraries(rainbow_talker pigpiod_if2)
 add_dependencies(rainbow_talker tamiya_cam_robot_generate_messages_cpp)
+
+## servo_listener
+add_executable(servo_listener src/servo_listener)
+target_link_libraries(servo_listener ${catkin_LIBRARIES})
+target_link_libraries(servo_listener Threads::Threads)
+target_link_libraries(servo_listener pigpiod_if2)
+add_dependencies(servo_listener tamiya_cam_robot_generate_messages_cpp)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

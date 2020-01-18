@@ -87,31 +87,52 @@
             Talker.ros.close();
         };
     }
+
+    if (!MusicTalker) {
+        console.log('Making ROS taker');
+        var MusicTalker = {
+            ros: null,
+            name: "",
+            init: function() {
+                this.ros = new ROSLIB.Ros();
+                this.ros.on('error', function(error) {
+                    document.getElementById('state').innerHTML = "Error";
+                });
+                this.ros.on('connection', function(error) {
+                    document.getElementById('state').innerHTML = "Connect";
+                });
+                this.ros.on('close', function(error) {
+                    document.getElementById('state').innerHTML = "Close";
+                });
+                this.ros.connect('ws://' + location.hostname + ':9090');
+            },
+            send: function(comment) {
+                // if (document.getElementById("comment").value.length == 0) return;
+                // var comment = document.getElementById("comment").value;
+                var pub = new ROSLIB.Topic({
+                    ros: this.ros,
+                    name: '/sound_pipes/sound',
+                    messageType: 'std_msgs/String'
+                });
+
+                var str = new ROSLIB.Message({ data: comment });
+                pub.publish(str);
+                document.getElementById('cmd').innerHTML = comment;
+                console.log(comment + 'is published. ');
+                // console.log('is publisded. ')
+            }
+        }
+        MusicTalker.init();
+
+        window.onunload = function() {
+            MusicTalker.ros.close();
+        };
+    }
     </script>
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" href="#">Robot Controller</a>
-<!--             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
-                <form class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div> -->
         </nav>
     </header>
 
@@ -123,6 +144,7 @@
             </div>
             <div class="col-sm-6">
                 <!-- JOY -->
+                <h5>Joy</h5>
                 <!-- M0: left motor, M1: right motor -->
                 <table class="table table-borderless ">
                     <tbody>
@@ -207,8 +229,93 @@
                     </tbody>
                 </table>
                 <!-- End of JOY -->
+                <h5> Music </h5>
+                <!-- Music Buttons -->
+                <table class="table table-borderless ">
+                    <tbody>
+                        <tr>
+                            <!-- 01 -->
+                            <td>
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/0fc.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                       <i class="fas fa-music"></i> 01
+                                    </button>
+                                </form>
+                            </td>
+                            <!-- 02 -->
+                            <td>
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/1ac.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                       <i class="fas fa-music"></i> 02
+                                    </button>
+                                </form>
+                            </td>
+                            <!-- 03 -->
+                            <td>
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/02c.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                       <i class="fas fa-music"></i> 03
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!-- 04 -->
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/3ac.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                      <i class="fas fa-music"></i>  04
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- 05  -->
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/3ec.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                      <i class="fas fa-music"></i>  05
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- 06 -->
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/06c.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                      <i class="fas fa-music"></i>  06
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!-- 07 -->
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/15c.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                       <i class="fas fa-music"></i> 07
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- 08 -->
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/23c.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                       <i class="fas fa-music"></i> 08
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- Right Down -->
+                                <form action="javascript:MusicTalker.send('/home/ubuntu/Music/handbell-kirakira.mp3');" id="ui">
+                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                       <i class="fas fa-music"></i> 09
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+
     </div>
 
  
