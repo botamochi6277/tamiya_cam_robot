@@ -3,7 +3,7 @@ pigpio: [
           "is_sc" , # BCM1(ID_SC)
           "sda"   , # BCM2(SDA)
           "scl"   , # BCM3(SCL)
-          "head"   , # BCM4(GPCLK0)
+          "clk"   , # BCM4(GPCLK0)
           "read"  , # BCM5
           "read"  , # BCM6
           "read"  , # BCM7(CE1)
@@ -22,9 +22,9 @@ pigpio: [
           "read"  , # BCM20
           "read"  , # BCM21
           "A_IN1" , # BCM22
-          "read"  , # BCM23
-          "read"  , # BCM24
-          "read"  , # BCM25
+          "rarm"  , # BCM23
+          "head"  , # BCM24
+          "larm"  , # BCM25
           "B_PWM" , # BCM26
           "A_IN2"   # BCM27
 ]

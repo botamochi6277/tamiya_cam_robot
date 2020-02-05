@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="favicon.ico">
-    <title>ROS WEB Teleoperater</title>
+    <title>ROS WEB Teleoperater [Curiosity]</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/all.min.css">
     <style>
@@ -106,6 +106,34 @@
                 pub.publish(str);
                 // document.getElementById('cmd').innerHTML = angle;
                 // console.log( "head published "+ angle);
+            },
+            driveRArm: function(angle) {
+                // if (document.getElementById("angle").value.length == 0) return;
+                // var angle = document.getElementById("angle").value;
+                var pub = new ROSLIB.Topic({
+                    ros: this.ros,
+                    name: '/tamiya1/rarm',
+                    messageType: 'std_msgs/Float32'
+                });
+
+                var str = new ROSLIB.Message({ data: parseFloat(angle) });
+                pub.publish(str);
+                // document.getElementById('cmd').innerHTML = angle;
+                // console.log( "head published "+ angle);
+            },
+            driveLArm: function(angle) {
+                // if (document.getElementById("angle").value.length == 0) return;
+                // var angle = document.getElementById("angle").value;
+                var pub = new ROSLIB.Topic({
+                    ros: this.ros,
+                    name: '/tamiya1/larm',
+                    messageType: 'std_msgs/Float32'
+                });
+
+                var str = new ROSLIB.Message({ data: parseFloat(angle) });
+                pub.publish(str);
+                // document.getElementById('cmd').innerHTML = angle;
+                // console.log( "head published "+ angle);
             }
         }
         Talker.init();
@@ -126,11 +154,11 @@
     </header>
     <div class="container">
         <div class="row">
-            <div class="col-sm-6 text-center text-light">
+            <div class="col-lg-6 text-center text-light">
                 <!-- CAMERA IMAGE -->
                 <img id="camera_image" class="img-fluid" src='img/disconnected.png' alt='web camera streamed image'></img>
             </div>
-            <div class="col-sm-6">
+            <div class="col-lg-6">
                 <!-- JOY -->
                 <h5>Car</h5>
                 <!-- M0: left motor, M1: right motor -->
@@ -139,7 +167,7 @@
                         <tr>
                             <!-- Left Up -->
                             <td>
-                                <form action="javascript:Talker.sendTwist(0.5,0.5);" id="carLeftUp">
+                                <form action="javascript:Talker.sendTwist(0.25,0.25);" id="carLeftUp">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-reply fa-lg"></i>
                                     </button>
@@ -147,7 +175,7 @@
                             </td>
                             <!-- Up -->
                             <td>
-                                <form action="javascript:Talker.sendTwist(1,0);" id="carUp">
+                                <form action="javascript:Talker.sendTwist(0.5,0);" id="carUp">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-angle-up fa-lg"></i>
                                     </button>
@@ -155,7 +183,7 @@
                             </td>
                             <!-- Right Up -->
                             <td>
-                                <form action="javascript:Talker.sendTwist(0.5,-0.5);" id="carRightUp">
+                                <form action="javascript:Talker.sendTwist(0.25,-0.25);" id="carRightUp">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-reply fa-flip-horizontal fa-lg"></i>
                                     </button>
@@ -165,7 +193,7 @@
                         <tr>
                             <td>
                                 <!-- Left Turn -->
-                                <form action="javascript:Talker.sendTwist(0,1);" id="carLeftTurn">
+                                <form action="javascript:Talker.sendTwist(0,0.5);" id="carLeftTurn">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-angle-left fa-lg"></i>
                                     </button>
@@ -181,7 +209,7 @@
                             </td>
                             <td>
                                 <!-- Right Turn -->
-                                <form action="javascript:Talker.sendTwist(0,-1);" id="carRightTurn">
+                                <form action="javascript:Talker.sendTwist(0,-0.5);" id="carRightTurn">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-angle-right fa-lg"></i>
                                     </button>
@@ -191,7 +219,7 @@
                         <tr>
                             <td>
                                 <!-- Left Down -->
-                                <form action="javascript:Talker.sendTwist(-0.5,-0.5);" id="carLeftDown">
+                                <form action="javascript:Talker.sendTwist(-0.25,-0.25);" id="carLeftDown">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-reply fa-flip-vertical fa-lg"></i>
                                     </button>
@@ -199,7 +227,7 @@
                             </td>
                             <td>
                                 <!-- Down -->
-                                <form action="javascript:Talker.sendTwist(-1,0);" id="carDown">
+                                <form action="javascript:Talker.sendTwist(-0.5,0);" id="carDown">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-angle-down fa-lg"></i>
                                     </button>
@@ -207,7 +235,7 @@
                             </td>
                             <td>
                                 <!-- Right Down -->
-                                <form action="javascript:Talker.sendTwist(-0.5,0.5);" id="carRightDown">
+                                <form action="javascript:Talker.sendTwist(-0.25,0.25);" id="carRightDown">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-reply fa-flip-horizontal fa-flip-vertical fa-lg"></i>
                                     </button>
@@ -224,7 +252,7 @@
                         <tr>
                             <!-- 01 -->
                             <td>
-                                <form action="javascript:MusicTalker.play('/home/ubuntu/Music/0fc.mp3');" id="ui">
+                                <form action="javascript:Talker.play('/home/ubuntu/Music/0fc.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-music"></i> 01
                                     </button>
@@ -232,7 +260,7 @@
                             </td>
                             <!-- 02 -->
                             <td>
-                                <form action="javascript:MusicTalker.play('/home/ubuntu/Music/1ac.mp3');" id="ui">
+                                <form action="javascript:Talker.play('/home/ubuntu/Music/1ac.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-music"></i> 02
                                     </button>
@@ -240,7 +268,7 @@
                             </td>
                             <!-- 03 -->
                             <td>
-                                <form action="javascript:MusicTalker.play('/home/ubuntu/Music/02c.mp3');" id="ui">
+                                <form action="javascript:Talker.play('/home/ubuntu/Music/02c.mp3');" id="ui">
                                     <button type="submit" class="btn btn-outline-light btn-lg btn-block">
                                         <i class="fas fa-music"></i> 03
                                     </button>
@@ -252,27 +280,27 @@
                 <!-- Servos -->
                 <h5> Servos </h5>
                 <div class="row">
-                    <div class="col-sm">
+                    <div class="col-md">
                         <form>
                             <div class="form-group">
                                 <label for="leftArm">L-Arm</label>
-                                <input id="leftArm" class="custom-range" type="range" name="range" min="-90" max="90"><span id="leftArmVal">0</span>
+                                <input id="leftArm" class="custom-range" type="range" name="range" min="-80" max="80"><span id="leftArmVal">0</span>
                             </div>
                         </form>
                     </div>
-                    <div class="col-sm">
+                    <div class="col-md">
                         <form>
                             <div class="form-group">
                                 <label for="head">Head</label>
-                                <input id="head" class="custom-range" type="range" name="range" min="-90" max="90"><span id="headVal">0</span>
+                                <input id="head" class="custom-range" type="range" name="range" min="-80" max="80"><span id="headVal">0</span>
                             </div>
                         </form>
                     </div>
-                    <div class="col-sm">
+                    <div class="col-md">
                         <form>
                             <div class="form-group">
                                 <label for="rightArm">R-Arm</label>
-                                <input id="rightArm" class="custom-range" type="range" name="range" min="-90" max="90"><span id="rightArmVal">0</span>
+                                <input id="rightArm" class="custom-range" type="range" name="range" min="-80" max="80"><span id="rightArmVal">0</span>
                             </div>
                         </form>
                     </div>
@@ -314,8 +342,14 @@
         // update values in the page
         if (ev.target.id == 'leftArm') {
             valueLeftArm.innerText = ev.target.value;
+            if (Talker) {
+                Talker.driveLArm(ev.target.value);
+            }
         } else if (ev.target.id == 'rightArm') {
             valueRightArm.innerText = ev.target.value;
+            if (Talker) {
+                Talker.driveRArm(ev.target.value);
+            }
         } else if (ev.target.id == 'head') {
             valueHead.innerText = ev.target.value;
             if (Talker) {

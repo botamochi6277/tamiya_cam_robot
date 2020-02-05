@@ -24,5 +24,13 @@
   <node pkg="tamiya_cam_robot" name="head_listener" type="servo_listener" output="screen">
     <param name="name" type="string" value="head"/>
   </node>
+
+  <node pkg="tamiya_cam_robot" name="larm_listener" type="servo_listener" output="screen">
+    <param name="name" type="string" value="larm"/>
+  </node>
+
+  <node pkg="tamiya_cam_robot" name="rarm_listener" type="servo_listener" output="screen">
+    <param name="name" type="string" value="rarm"/>
+  </node>
   
 </launch>
