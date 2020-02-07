@@ -63,6 +63,12 @@ target_link_libraries(servo_listener Threads::Threads)
 target_link_libraries(servo_listener pigpiod_if2)
 add_dependencies(servo_listener tamiya_cam_robot_generate_messages_cpp)
 
+## write_listener
+add_executable(gpio_write_listener src/gpio_write_listener)
+target_link_libraries(gpio_write_listener ${catkin_LIBRARIES})
+target_link_libraries(gpio_write_listener Threads::Threads)
+target_link_libraries(gpio_write_listener pigpiod_if2)
+add_dependencies(gpio_write_listener tamiya_cam_robot_generate_messages_cpp)
 
 
 
