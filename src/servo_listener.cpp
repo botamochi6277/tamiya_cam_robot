@@ -70,7 +70,7 @@ class Servo {
 };
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "web_listener");
+  ros::init(argc, argv, "servo_listener");
   ros::NodeHandle nh;
   ros::NodeHandle node_private("~");
 
