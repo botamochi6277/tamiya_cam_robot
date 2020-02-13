@@ -9,7 +9,7 @@
 
 ![](img/structure.png)
 
-![Electric Structure](img/tamiya_control.svg)
+![Electric Structure](img/tamiya_control.png)
 
 | 名称 | 説明                                                                                   | 
 |--------------------------------------|--------------------------------------------------------|

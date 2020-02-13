@@ -2,23 +2,23 @@
 
 A ROS package to control [Tamiya's Cam-Program Robot](https://www.tamiya.com/english/products/70227/index.htm).
 
-You can teleoperate the robot with web browser of your smart-phone.
+You can teleoperate the robot with web browser of your smart-phone or tablet.
 
 ## System structure
 
 ![](img/structure.png)
 
-![Electric Structure](img/tamiya_control.svg)
+![Electric Structure](img/tamiya_control.png)
 
 | Name | Role                                                                                   | 
 |--------------------------------------|--------------------------------------------------------|
 | Raspberry Pi | One board PC to control the cam-robot                                              |    
 | USB Camera  |Camera to obtain robot's view                                                     |    
 | Motor Driver |IC controlling DC motors. This repository uses [TB6612](https//www.switch-science.com/catalog/3586/)．                                 |  
-| R/L-Motor |DC motors of the cam robot                                               |                                               
-| Power Bank|  Battery for Raspberry Pi                                                    |                                            
-| Alkaline Battery  |Battery for  the motors                                               |                                              
+| R/L-Motor | DC motors of the cam robot                                                                                             
 | Remote Device | Device to access the Pi.|                                                 
+
+You need a power bank and alkaline Batteries as power supplies for the Pi and the motors, respectively.
 
 ## Raspberry Pi OS Setup 
 
