@@ -1,3 +1,9 @@
+/**
+ * @file Hbridge.hpp
+
+ * @brief Hbridge class controlling a DC-motor for ROS
+**/
+
 #ifndef HBRIDGE_H
 #define HBRIDGE_H
 
@@ -6,27 +12,39 @@
 #include "geometry_msgs/Twist.h"
 #include <pigpiod_if2.h>
 
+/**
+ * @brief Hbridge class controlling a DC-motor for ROS
+ */
 class HBridge {
- private: // pigpio
-  int pi_;
+ private: 
+  int pi_; // pigpio id
 
-  // Motor driver INPUT
+  // INPUT pin numbers for motor driver
   int pin_in1_;
   int pin_in2_;
   int pin_pwm_;
 
   // Motor Driver Type
-  // 0: TB6612: 2 digital, 1 pwm
-  // 1: TA7219P: 2 pwm
+  // 0: TB6612 type needs two digital, one pwm signals.
+  // 1: L298N type needs two pwm signals.
   int type_;
-
 
  public:
 
+  /**
+   * @brief default constructor (dummy)
+   */
   HBridge(){
   }
 
-  // Set Pin Assign for TB6612
+  /**
+   * @brief set gpio pin numbers for TB6612 type driver
+   * @param pi      pigpio id
+   * @param pin_in1 pin number connected to IN1 of TB6612
+   * @param pin_in2 pin number connected to IN2 of TB6612
+   * @param pin_pwm pin number connected to PWM of TB6612
+   * @note You should set STBY pin HIGH.
+   */
   void setPin(int pi,
           int pin_in1,
           int pin_in2,
@@ -43,7 +61,12 @@ class HBridge {
     set_mode(pi_, pin_pwm_, PI_OUTPUT);
   }
 
-  // Set Pin Assign for TA7219P
+  /**
+   * @brief set gpio pin numbers for L298N type driver
+   * @param pi       pigpio id
+   * @param pin_in1 pin number connected to IN1 of L298N
+   * @param pin_in2 pin number connected to IN2 of L298N
+   */
   void setPin(int pi,
           int pin_in1,
           int pin_in2) {
@@ -58,8 +81,8 @@ class HBridge {
   }
 
   /**
-   * drive a motor
-   * @param power power of a motor (-255 -- 255)
+   * @brief drive a motor
+   * @param power power (duty ratio) of a motor (-255 -- 255)
    */
   void drive(int power) {
     switch (type_) {
@@ -77,7 +100,7 @@ class HBridge {
       break;
 
     case 1:
-      // TA7219P
+      // L298N
       if (power > 0) {
         set_PWM_dutycycle(pi_, pin_in1_, power);
         gpio_write(pi_, pin_in2_, 0);
