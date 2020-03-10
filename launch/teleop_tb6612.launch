@@ -13,10 +13,12 @@
   <node pkg="web_video_server" name="server1" type="web_video_server"></node>
 
   <node pkg="tamiya_cam_robot" name="robo1" type="wheels_listener" output="screen">
-    <param name="AIN1" type="int" value="17"/>
-    <param name="AIN2" type="int" value="18"/>
-    <param name="BIN1" type="int" value="27"/>
-    <param name="BIN2" type="int" value="22"/>
+    <param name="AIN1" type="int" value="22"/>
+    <param name="AIN2" type="int" value="27"/>
+    <param name="PWMA" type="int" value="17"/>
+    <param name="BIN1" type="int" value="13"/>
+    <param name="BIN2" type="int" value="19"/>
+    <param name="PWMB" type="int" value="26"/>
   </node>
 
   <node pkg="tamiya_cam_robot" name="light1" type="vel_color.py" output="screen"></node>

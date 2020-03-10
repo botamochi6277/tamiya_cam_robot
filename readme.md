@@ -4,6 +4,8 @@ A ROS package to control [Tamiya's Cam-Program Robot](https://www.tamiya.com/eng
 
 You can teleoperate the robot with web browser of your smart-phone or tablet.
 
+[Wiki](https://github.com/botamochi6277/tamiya_cam_robot/wiki) of this project provides information helping you.
+
 ## System structure
 
 ![](img/structure.png)
@@ -179,4 +181,10 @@ Please access `http://[RaspberryPi's IP address]:8085/tamiya_cam_robot/teleop.ht
 
 
 <!-- rosrun turtlesim turtle_teleop_key /turtle1/cmd_vel:=/tamiya1/cmd_vel -->
+
+---
+
+Web Workframe : [Bootstrap v4.3.1](https://getbootstrap.com/)
+Web Theme: [superhero](https://bootswatch.com/superhero/)
+
 

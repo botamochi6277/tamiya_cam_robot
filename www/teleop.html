@@ -45,6 +45,7 @@
                 });
                 this.ros.on('close', function(error) {
                     document.getElementById('state').innerHTML = "Close";
+                    document.getElementById('camera_image').src = "img/disconnected.png";
                 });
                 this.ros.connect('ws://' + location.hostname + ':9090');
             },

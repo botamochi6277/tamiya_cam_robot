@@ -11,9 +11,22 @@
     <title>TAMIYA Cam-Program Robot Manager</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sticky-footer-navbar/">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
     <!-- Custom styles for this template -->
-    <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
 </head>
 
 <body>
@@ -43,54 +56,44 @@
     <main role="main" class="container">
         <h1 class="mt-5">TAMIYA Cam-Program Robot Manager</h1>
         <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title"> <a href="teleop.html"> Default Teleoperator </a> </h4>
-                        <p class="card-text">
-                            <pre><code> roslaunch tamiya_cam_robot teleop.launch </code></pre>
-                            This web server sends motor efforts <code>std_msgs::String</code> topics to a motor control node.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title"> <a href="teleop_twist.html"> Teleoperator w/ Twist</a> </h4>
+            <div class="col-sm-6">
+                <div class="card border-secondary mb-3">
+                    <div class=" card-body">
+                        <h4 class="card-title"><a href="teleop_twist.html"> <i class="fas fa-arrows-alt"></i> Teleoperator w/ Twist</a></h4>
                         <p class="card-text">
                             <pre><code> roslaunch tamiya_cam_robot teleop_twist.launch </code></pre>
-                            This web server sends moving efforts (linear and angular) as <code>std_geometry::Twist</code> topics to a motor control node.
+                            This browser sends moving efforts as <code>std_geometry::Twist</code> to a node controlling motors.
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title"> <a href="music_player.html"> Music Player</a> </h4>
+            <div class="col-sm-6">
+                <div class="card border-secondary mb-3">
+                    <div class=" card-body">
+                        <h4 class="card-title"><a href="music_player.html"> <i class="fas fa-music"></i> Music Player</a></h4>
                         <p class="card-text">
                             <pre><code> roslaunch tamiya_cam_robot music_player.launch </code></pre>
-                            This web server sends a full path of a music file as <code>std_msgs::String</code> topics to a music player node.
+                            This browser sends a full path of a music file as <code>std_msgs::String</code> to a music player node.
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title"> <a href="led_tuner.html"> LED Tuner</a> </h4>
+            <div class="col-sm-6">
+                <div class="card border-secondary mb-3">
+                    <div class=" card-body">
+                        <h4 class="card-title"><a href="led_tuner.html"> <i class="fas fa-lightbulb"></i> LED Tuner</a></h4>
                         <p class="card-text">
                             <pre><code> roslaunch tamiya_cam_robot led_tuner.launch </code></pre>
-                            This web server sends hex-color codes as <code>std_msgs::UInt32MultiArray</code> topics to a color listener node.
+                            This web server sends hex-color codes as <code>std_msgs::UInt32MultiArray</code> to a node controlling neopixels .
+                            This function is unstable.
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title"> <a href="curiosity.html"> Curiosity</a> </h4>
+            <div class="col-sm-6">
+                <div class="card border-secondary mb-3">
+                    <div class=" card-body">
+                        <h4 class="card-title"><a href="curiosity.html"> <i class="fas fa-robot"></i> Curiosity</a></h4>
                         <p class="card-text">
                             <pre><code> roslaunch tamiya_cam_robot curiosity.launch </code></pre>
                             This robot has 3 servo motors for head and arms.
@@ -100,9 +103,10 @@
             </div>
         </div>
     </main>
-    <footer class="footer">
+    <footer class="footer navbar-dark bg-dark">
         <div class="container">
-            <span class="text-muted">BotaLab</span>
+            <!-- <span class="text-muted">Place sticky footer content here.</span> -->
+            <p class="text-light "> BotaLab</p>
         </div>
     </footer>
     <!-- Bootstrap core JavaScript
