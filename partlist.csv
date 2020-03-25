@@ -1,8 +1,0 @@
-名称             , 説明                                                                                             
-Raspberry Pi     , ROSを搭載したメインコントローラ                                                                  
-USB Camera       , カムロボットに搭載するカメラ
-Motor Driver     , DCモータを制御するためのIC．今回は[TB6612](https://www.switch-science.com/catalog/3586/)を使用．
-R/L-Motor        , カムロボットに搭載されているDCモータ
-Mobile Batter    , Raspberry Pi 用のバッテリー
-Alkaline Battery , モータ駆動用のアルカリ電池
-Remote Device    , Wifiを通してRaspberry Piに接続する，リモコン用のデバイス(スマートフォンなど)．

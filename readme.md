@@ -6,19 +6,19 @@ You can teleoperate the robot with web browsers of your smart-phone or tablet.
 
 [Wiki](https://github.com/botamochi6277/tamiya_cam_robot/wiki) of this project provides information helping you.
 
-![](https://img.youtube.com/vi/QDSQZUwj9yU/0.jpg)](https://www.youtube.com/watch?v=QDSQZUwj9yU)
+[![https://www.youtube.com/watch?v=HUGwly77vZY](https://img.youtube.com/vi/HUGwly77vZY/0.jpg)](https://www.youtube.com/watch?v=HUGwly77vZY)
 
 ## System Structure
 
-![](img/structure.png)
+![structure](https://user-images.githubusercontent.com/14128408/77536859-6be32780-6ee0-11ea-8f5b-8a7dac8cfe95.png)
 
-![Electric Structure](img/tamiya_control.png)
+![tamiya_control](https://user-images.githubusercontent.com/14128408/77536866-70a7db80-6ee0-11ea-9f70-31608a7f76ed.png)
 
 | Name | Role                                                                                   | 
 |--------------------------------------|--------------------------------------------------------|
 | Raspberry Pi | One board PC to control the cam-robot                                              |    
 | USB Camera  |Camera to obtain robot's view                                                     |    
-| Motor Driver |IC controlling DC motors. This repository uses [TB6612](https//www.switch-science.com/catalog/3586/)．                                 |  
+| Motor Driver |IC controlling DC motors. This repository uses L298N or TB6612．                                 |  
 | R/L-Motor | DC motors of the cam robot                                                                                             
 | Remote Device | Device to access the Pi.|                                                 
 

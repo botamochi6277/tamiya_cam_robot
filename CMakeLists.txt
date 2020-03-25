@@ -21,14 +21,14 @@ catkin_package()
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 
-# web_listener
+# web_listener (deprecated)
 add_executable(web_listener src/web_listener.cpp)
 target_link_libraries(web_listener ${catkin_LIBRARIES})
 target_link_libraries(web_listener Threads::Threads)
 target_link_libraries(web_listener pigpiod_if2)
 add_dependencies(web_listener tamiya_cam_robot_generate_messages_cpp)
 
-# veb_listener
+# veb_listener (deprecated)
 add_executable(vel_listener src/vel_listener.cpp)
 target_link_libraries(vel_listener ${catkin_LIBRARIES})
 target_link_libraries(vel_listener Threads::Threads)
@@ -42,7 +42,7 @@ target_link_libraries(wheels_listener Threads::Threads)
 target_link_libraries(wheels_listener pigpiod_if2)
 add_dependencies(wheels_listener tamiya_cam_robot_generate_messages_cpp)
 
-## test_run
+## test_run (deprecated)
 add_executable(test_run src/test_run.cpp)
 target_link_libraries(test_run ${catkin_LIBRARIES})
 target_link_libraries(test_run Threads::Threads)
@@ -63,12 +63,12 @@ target_link_libraries(servo_listener Threads::Threads)
 target_link_libraries(servo_listener pigpiod_if2)
 add_dependencies(servo_listener tamiya_cam_robot_generate_messages_cpp)
 
-## write_listener
-add_executable(gpio_write_listener src/gpio_write_listener)
-target_link_libraries(gpio_write_listener ${catkin_LIBRARIES})
-target_link_libraries(gpio_write_listener Threads::Threads)
-target_link_libraries(gpio_write_listener pigpiod_if2)
-add_dependencies(gpio_write_listener tamiya_cam_robot_generate_messages_cpp)
+## gpio_writing_listener
+add_executable(gpio_writing_listener src/gpio_writing_listener)
+target_link_libraries(gpio_writing_listener ${catkin_LIBRARIES})
+target_link_libraries(gpio_writing_listener Threads::Threads)
+target_link_libraries(gpio_writing_listener pigpiod_if2)
+add_dependencies(gpio_writing_listener tamiya_cam_robot_generate_messages_cpp)
 
 
 
