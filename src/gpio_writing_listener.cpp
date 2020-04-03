@@ -1,21 +1,28 @@
+/**
+ * @file gpio_writing_listener.cpp
+ *
+ * @brief ROS Listener to output digital signals.
+**/
 #include "ros/ros.h"
 #include "std_msgs/Bool.h"
 
 #include <iostream>
+#include <string>
+#include <boost/format.hpp>
 #include <chrono>
 #include <thread>
 #include <TB6612.hpp>
 #include <pigpiod_if2.h>
 
 
-class Digital {
+class DigitalWriter {
  private:
   int pi_;
   int pin_;
 
  public:
 
-  Digital(int pi, int pin) {
+  DigitalWriter(int pi, int pin) {
     pi_ = pi;
     pin_ = pin;
     set_mode(pi_, pin_, PI_OUTPUT);
@@ -32,7 +39,7 @@ class Digital {
 };
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "gpio_write_listener");
+  ros::init(argc, argv, "gpio_writing_listener");
   ros::NodeHandle nh;
   ros::NodeHandle node_private("~");
 
@@ -44,30 +51,19 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  int pin_write = 26;
-  std::string pin_name = "buzzer";
-  if (node_private.getParam("name", pin_name)) {
-    //
+  int pin_write = -1;
+  if (!node_private.getParam("pin", pin_write)) {
+    pin_write = 26; // Not found, set a default value
   }
 
-  // Read pin assign
-  std::vector<std::string> pinouts;
-  if (nh.getParam("pigpio", pinouts)) {
-    for (int i = 0; i < pinouts.size(); ++i) {
-      if (pinouts.at(i) == pin_name) {
-        pin_write = i;
-      }
-    }
-  } else {
-    ROS_ERROR("No pigpio param");
-  }
+  ROS_INFO("Write: pin %02d", pin_write);
 
-  ROS_INFO("%s - pin %02d", pin_name.c_str(), pin_write);
+  DigitalWriter mydigital(pi, pin_write);
 
-  Digital mydigital(pi, pin_write);
-
-  ros::Subscriber sub = nh.subscribe("tamiya1/" + pin_name, 1000,
-                                     &Digital::callback, &mydigital);
+  ros::Subscriber sub = nh.subscribe((boost::format("tamiya1/gpio_w%02d") % pin_write).str(),
+                                     1000,
+                                     &DigitalWriter::callback,
+                                     &mydigital);
   ros::spin();
   mydigital.sleep();
   pigpio_stop(pi);

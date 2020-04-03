@@ -1,3 +1,4 @@
+<!-- Teleoperation UI -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
@@ -50,7 +51,7 @@
                 });
                 this.ros.connect('ws://' + location.hostname + ':9090');
             },
-            send: function(vx,gz) {
+            send: function(vx, gz) {
                 // if (document.getElementById("comment").value.length == 0) return;
                 // var comment = document.getElementById("comment").value;
                 var pub = new ROSLIB.Topic({
@@ -61,15 +62,15 @@
                 // var vx =  document.getElementById('vx').innerHTML
                 // var gz =  document.getElementById('gz').innerHTML
                 var vel = new ROSLIB.Message({
-                    linear:{
-                        x:vx,
-                        y:0,
-                        z:0
+                    linear: {
+                        x: vx,
+                        y: 0,
+                        z: 0
                     },
-                    angular:{
-                        x:0,
-                        y:0,
-                        z:gz
+                    angular: {
+                        x: 0,
+                        y: 0,
+                        z: gz
                     }
                 });
                 pub.publish(vel);
@@ -91,8 +92,8 @@
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Robot Controller</a>
-<!--             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#"> <i class="fas fa-gamepad"></i> Robot Controller</a>
+            <!--             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -114,39 +115,39 @@
             </div> -->
         </nav>
     </header>
-
     <div class="container">
         <div class="row">
             <div class="col-lg-6 text-center text-light">
                 <!-- CAMERA IMAGE -->
-                <img id="camera_image" class="img-fluid" src='img/disconnected.png' alt = 'web camera streamed image'></img>
+                <img id="camera_image" class="img-fluid" src='img/disconnected.png' alt='web camera streamed image'></img>
             </div>
             <div class="col-lg-6">
+                <div>Linear: <span id="linearVal">0.00</span>,
+                Angular: <span id="angularVal">0.00</span> </div>
                 <!-- JOY -->
-                <!-- M0: left motor, M1: right motor -->
                 <table class="table table-borderless ">
                     <tbody>
                         <tr>
                             <!-- Left Up -->
                             <td>
-                                <form action="javascript:Talker.send(0.5,0.5);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <form>
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="leftUp">
                                         <i class="fas fa-level-up-alt fa-lg fa-rotate-270"></i>
                                     </button>
                                 </form>
                             </td>
-                            <!-- Up -->
+                            <!-- Up/Forward -->
                             <td>
-                                <form action="javascript:Talker.send(1,0);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <form>
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="up">
                                         <i class="fas fa-caret-up fa-lg"></i>
                                     </button>
                                 </form>
                             </td>
                             <!-- Right Up -->
                             <td>
-                                <form action="javascript:Talker.send(0.5,-0.5);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <form>
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="rightUp">
                                         <i class="fas fa-level-down-alt fa-lg fa-rotate-270"></i>
                                     </button>
                                 </form>
@@ -155,24 +156,24 @@
                         <tr>
                             <td>
                                 <!-- Left Turn -->
-                                <form action="javascript:Talker.send(0,1);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <form>
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="leftTurn">
                                         <i class="fas fa-redo-alt fa-lg fa-flip-horizontal"></i>
                                     </button>
                                 </form>
                             </td>
                             <td>
                                 <!-- Pose  -->
-                                <form action="javascript:Talker.send(0,0);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <form>
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="pose">
                                         <i class="fas fa-circle fa-lg"></i>
                                     </button>
                                 </form>
                             </td>
                             <td>
                                 <!-- Right Turn -->
-                                <form action="javascript:Talker.send(0,-1);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <form>
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="rightTurn">
                                         <i class="fas fa-redo-alt fa-lg"></i>
                                     </button>
                                 </form>
@@ -181,24 +182,24 @@
                         <tr>
                             <td>
                                 <!-- Left Down -->
-                                <form action="javascript:Talker.send(-0.5,-0.5);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <form>
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="leftDown">
                                         <i class="fas fa-level-down-alt fa-lg fa-rotate-90"></i>
                                     </button>
                                 </form>
                             </td>
                             <td>
                                 <!-- Down -->
-                                <form action="javascript:Talker.send(-1,0);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <form>
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="down">
                                         <i class="fas fa-caret-down fa-lg"></i>
                                     </button>
                                 </form>
                             </td>
                             <td>
                                 <!-- Right Down -->
-                                <form action="javascript:Talker.send(-0.5,0.5);" id="ui">
-                                    <button type="submit" class="btn btn-outline-light btn-lg btn-block">
+                                <form>
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="rightDown">
                                         <i class="fas  fa-level-up-alt fa-lg fa-rotate-90"></i>
                                     </button>
                                 </form>
@@ -207,17 +208,131 @@
                     </tbody>
                 </table>
                 <!-- End of JOY -->
+                <form>
+                    <div class="form-group">
+                        <label for="power">Power</label>
+                        <input id="power" class="custom-range" type="range" name="range" min="0" max="100"><span id="powerVal">50</span>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
- 
     <footer class="footer navbar-dark bg-dark">
         <div class="container">
             <!-- <span class="text-muted">Place sticky footer content here.</span> -->
             <p class="text-light ">Status： <label id="state">Disconnected</label></p>
         </div>
     </footer>
+    <script type="text/javascript">
+
+    var latestId = "pose";
+
+    var linear = 0.0;
+    var angular = 0.0;
+    var power = 0.5;
+    // buttons
+    var leftUpBtn = document.getElementById('leftUp');
+    var upBtn = document.getElementById('up');
+    var rightUpBtn = document.getElementById('rightUp');
+
+    var leftTurnBtn = document.getElementById('leftTurn');
+    var poseBtn = document.getElementById('pose');
+    var rightTurnBtn = document.getElementById('rightTurn');
+
+    var leftDownBtn = document.getElementById('leftDown');
+    var downBtn = document.getElementById('down');
+    var rightDownBtn = document.getElementById('rightDown');
+
+    // sliders
+    var powerSlider = document.getElementById('power');
+    // values display
+    var valueLinear = document.getElementById('linearVal');
+    var valueAngular = document.getElementById('angularVal');
+    var valuePower = document.getElementById('powerVal');
+
+    // add events to sliders
+    powerSlider.addEventListener('input', handlePowerChange);
+
+    // add events to buttons
+    leftUpBtn.addEventListener('mousedown', handleTwistChange);
+    upBtn.addEventListener('mousedown', handleTwistChange);
+    rightUpBtn.addEventListener('mousedown', handleTwistChange);
+
+    leftTurnBtn.addEventListener('mousedown', handleTwistChange);
+    poseBtn.addEventListener('mousedown', handleTwistChange);
+    rightTurnBtn.addEventListener('mousedown', handleTwistChange);
+
+    leftDownBtn.addEventListener('mousedown', handleTwistChange);
+    downBtn.addEventListener('mousedown', handleTwistChange);
+    rightDownBtn.addEventListener('mousedown', handleTwistChange);
+
+    function handlePowerChange(ev) {
+        // update values in the page
+        if (ev.target.id == 'power') {
+            power = parseFloat(ev.target.value)*0.01;
+            valuePower.innerText = ev.target.value;
+
+            TwistUpdate(latestId);
+        }
+    }
+    function handleTwistChange(ev){
+        // target is often null. it is assumed you click icon body.
+        // https://qiita.com/sasurai_usagi3/items/45d61fd08cdf7cff57fa
+        if(ev.currentTarget.id){
+            TwistUpdate(ev.currentTarget.id);
+        }else{
+           console.log('Null id, ' + ev.currentTarget.id); 
+        }
+    }
+
+    function TwistUpdate(id){
+        console.log('Twist is changeing, ' + id);
+        latestId = id;
+        if (id == 'leftUp') {
+            linear = 0.5*power;
+            angular = 0.5*power;
+        }
+        if (id == 'up') {
+            linear = power;
+            angular = 0.0;
+        }
+        if (id == 'rightUp') {
+            linear = 0.5*power;
+            angular = -0.5*power;
+        }
+
+        if (id == 'leftTurn') {
+            linear = 0.0;
+            angular = power;
+        }
+        if (id == 'pose') {
+            linear = 0.0;
+            angular = 0.0;
+        }
+        if (id == 'rightTurn') {
+            linear = 0.0;
+            angular = -power;
+        }
+
+        if (id == 'leftDown') {
+            linear = -0.5*power;
+            angular = -0.5*power;
+        }
+        if (id == 'down') {
+            linear = -power;
+            angular = 0.0;
+        }
+        if (id == 'rightDown') {
+            linear = -0.5*power;
+            angular = 0.5*power;
+        }
+        valueLinear.innerText = linear.toFixed(2);
+        valueAngular.innerText = angular.toFixed(2);
+        if (Talker) {
+            Talker.send(linear,angular);
+        }
+    }
+    </script>
     <script src="js/jquery-3.2.1.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
