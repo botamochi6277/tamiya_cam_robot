@@ -10,7 +10,7 @@ class Neopixels {
   int pi_;
   int num_ = 0;
 
-  std::vector<unsigned char> buffs_;
+  std::vector<char> buffs_;
   // GRB hexcolors
   std::vector<unsigned int> colors_;
 
@@ -44,7 +44,7 @@ class Neopixels {
   void stop() {
     buffs_.assign(0x0, num_ * 24);
     show();
-    spi_close(pi_);
+    spi_close(pi_, handle_);
   }
 
   void setColor(int index, int hexcolor) {
@@ -60,7 +60,7 @@ class Neopixels {
     }
   }
 
-  void setColor(int index, int red int blue, int green) {
+  void setColor(int index, int red, int blue, int green) {
     if (index < colors_.size()) {
       // GRB
       colors_[index] = ((green << 16) | (red << 8) | blue);
@@ -74,7 +74,7 @@ class Neopixels {
     colors_.assign(hexcolor, num_);
   }
 
-  void fill(int red int blue, int green) {
+  void fill(int red, int blue, int green) {
     // GRB
     unsigned int c = ((green << 16) | (red << 8) | blue);
     fill(c);
@@ -97,13 +97,14 @@ class Neopixels {
       }
     }
 
-    spi_write(pi_, handle_, buffs_);
+    spi_write(pi_, handle_, &buffs_.front(), buffs_.size());
     ros::Duration(1.0e-4).sleep(); // waiting for updating colors
   }
 
   void callback(const std_msgs::UInt32MultiArray::ConstPtr& msg) {
-    for (int i = 0; i < msg.data.size(); ++i) {
-      setColor(i, msg.data[i]);
+    int len = sizeof msg->data / sizeof msg->data[0];
+    for (int i = 0; i < len; ++i) {
+      setColor(i, msg->data[i]);
     }
     show();
   }
@@ -113,6 +114,7 @@ class Neopixels {
 int main(int argc, char **argv) {
   ros::init(argc, argv, "neopixel_listener");
   ros::NodeHandle nh;
+  ros::NodeHandle node_private("~");
 
   int pi;
   pi = pigpio_start(NULL, NULL); /* Connect to Pi. */

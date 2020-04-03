@@ -70,6 +70,13 @@ target_link_libraries(gpio_write_listener Threads::Threads)
 target_link_libraries(gpio_write_listener pigpiod_if2)
 add_dependencies(gpio_write_listener tamiya_cam_robot_generate_messages_cpp)
 
+## neopixel_listener
+add_executable(neopixel_listener src/neopixel_listener)
+target_link_libraries(neopixel_listener ${catkin_LIBRARIES})
+target_link_libraries(neopixel_listener Threads::Threads)
+target_link_libraries(neopixel_listener pigpiod_if2)
+add_dependencies(neopixel_listener tamiya_cam_robot_generate_messages_cpp)
+
 
 
 
