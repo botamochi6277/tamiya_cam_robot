@@ -179,165 +179,185 @@
                 <img id="camera_image" class="img-fluid" src='img/disconnected.png' alt='web camera streamed image'></img>
             </div>
             <div class="col-lg-6">
-                <h5> Car </h5>
-                <div>Linear: <span id="linearVal">0.00</span>,
-                Angular: <span id="angularVal">0.00</span> </div>
-                <!-- JOY -->
-                <table class="table table-borderless ">
-                    <tbody>
-                        <tr>
-                            <!-- Left Up -->
-                            <td>
-                                <form>
-                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="leftUp">
-                                        <i class="fas fa-level-up-alt fa-lg fa-rotate-270"></i>
-                                    </button>
-                                </form>
-                            </td>
-                            <!-- Up/Forward -->
-                            <td>
-                                <form>
-                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="up">
-                                        <i class="fas fa-caret-up fa-lg"></i>
-                                    </button>
-                                </form>
-                            </td>
-                            <!-- Right Up -->
-                            <td>
-                                <form>
-                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="rightUp">
-                                        <i class="fas fa-level-down-alt fa-lg fa-rotate-270"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <!-- Left Turn -->
-                                <form>
-                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="leftTurn">
-                                        <i class="fas fa-redo-alt fa-lg fa-flip-horizontal"></i>
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                <!-- Pose  -->
-                                <form>
-                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="pose">
-                                        <i class="fas fa-circle fa-lg"></i>
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                <!-- Right Turn -->
-                                <form>
-                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="rightTurn">
-                                        <i class="fas fa-redo-alt fa-lg"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <!-- Left Down -->
-                                <form>
-                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="leftDown">
-                                        <i class="fas fa-level-down-alt fa-lg fa-rotate-90"></i>
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                <!-- Down -->
-                                <form>
-                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="down">
-                                        <i class="fas fa-caret-down fa-lg"></i>
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                <!-- Right Down -->
-                                <form>
-                                    <button type="button" class="btn btn-secondary btn-lg btn-block" id="rightDown">
-                                        <i class="fas  fa-level-up-alt fa-lg fa-rotate-90"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- End of JOY -->
-                <form>
-                    <div class="form-group">
-                        <label for="power">Power</label>
-                        <input id="power" class="custom-range" type="range" name="range" min="0" max="100"><span id="powerVal">50</span>
-                    </div>
-                </form>
-
-                <!-- Music Buttons -->
-                <h5> Musics </h5>
-                <table class="table table-borderless ">
-                    <tbody>
-                        <tr>
-                            <!-- 01 -->
-                            <td>
-                                <form>
-                                    <button type="button" class="btn btn-outline-light btn-lg btn-block" id="music01">
-                                        <i class="fas fa-music"></i> 01
-                                    </button>
-                                </form>
-                            </td>
-                            <!-- 02 -->
-                            <td>
-                                <form >
-                                    <button type="button" class="btn btn-outline-light btn-lg btn-block" id="music02">
-                                        <i class="fas fa-music"></i> 02
-                                    </button>
-                                </form>
-                            </td>
-                            <!-- 03 -->
-                            <td>
-                                <form>
-                                    <button type="button" class="btn btn-outline-light btn-lg btn-block" id="music03">
-                                        <i class="fas fa-music"></i> 03
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- End of Music Buttons -->
-
-                <!-- Servos -->
-                <h5> Servos </h5>
-                <div class="row">
-                    <div class="col-md">
+                <!-- Tab Test -->
+                <!-- https://ics.media/entry/190826/ -->
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#carPane" class="nav-link active" data-toggle="tab">Car</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#musicPane" class="nav-link" data-toggle="tab">Music</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#servoPane" class="nav-link" data-toggle="tab">Servo</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="carPane" class="tab-pane active">
+                        <!-- <h5> Car </h5> -->
+                        <div>Linear: <span id="linearVal">0.00</span>,
+                            Angular: <span id="angularVal">0.00</span> </div>
+                        <!-- JOY -->
+                        <table class="table table-borderless ">
+                            <tbody>
+                                <tr>
+                                    <!-- Left Up -->
+                                    <td>
+                                        <form>
+                                            <button type="button" class="btn btn-secondary btn-lg btn-block" id="leftUp">
+                                                <i class="fas fa-level-up-alt fa-lg fa-rotate-270"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <!-- Up/Forward -->
+                                    <td>
+                                        <form>
+                                            <button type="button" class="btn btn-secondary btn-lg btn-block" id="up">
+                                                <i class="fas fa-caret-up fa-lg"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <!-- Right Up -->
+                                    <td>
+                                        <form>
+                                            <button type="button" class="btn btn-secondary btn-lg btn-block" id="rightUp">
+                                                <i class="fas fa-level-down-alt fa-lg fa-rotate-270"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <!-- Left Turn -->
+                                        <form>
+                                            <button type="button" class="btn btn-secondary btn-lg btn-block" id="leftTurn">
+                                                <i class="fas fa-redo-alt fa-lg fa-flip-horizontal"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <!-- Pose  -->
+                                        <form>
+                                            <button type="button" class="btn btn-secondary btn-lg btn-block" id="pose">
+                                                <i class="fas fa-circle fa-lg"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <!-- Right Turn -->
+                                        <form>
+                                            <button type="button" class="btn btn-secondary btn-lg btn-block" id="rightTurn">
+                                                <i class="fas fa-redo-alt fa-lg"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <!-- Left Down -->
+                                        <form>
+                                            <button type="button" class="btn btn-secondary btn-lg btn-block" id="leftDown">
+                                                <i class="fas fa-level-down-alt fa-lg fa-rotate-90"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <!-- Down -->
+                                        <form>
+                                            <button type="button" class="btn btn-secondary btn-lg btn-block" id="down">
+                                                <i class="fas fa-caret-down fa-lg"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <!-- Right Down -->
+                                        <form>
+                                            <button type="button" class="btn btn-secondary btn-lg btn-block" id="rightDown">
+                                                <i class="fas  fa-level-up-alt fa-lg fa-rotate-90"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- End of JOY -->
                         <form>
                             <div class="form-group">
-                                <label for="leftArm">L-Arm</label>
-                                <input id="leftArm" class="custom-range" type="range" name="range" min="-80" max="80"><span id="leftArmVal">0</span>
+                                <label for="power">Power</label>
+                                <input id="power" class="custom-range" type="range" name="range" min="0" max="100"><span id="powerVal">50</span>
                             </div>
                         </form>
                     </div>
-                    <div class="col-md">
-                        <form>
-                            <div class="form-group">
-                                <label for="head">Head</label>
-                                <input id="head" class="custom-range" type="range" name="range" min="-80" max="80"><span id="headVal">0</span>
-                            </div>
-                        </form>
+                    <div id="musicPane" class="tab-pane">
+                        <!-- Music Buttons -->
+                        <!-- <h5> Musics </h5> -->
+                        <table class="table table-borderless ">
+                            <tbody>
+                                <tr>
+                                    <!-- 01 -->
+                                    <td>
+                                        <form>
+                                            <button type="button" class="btn btn-outline-light btn-lg btn-block" id="music01">
+                                                <i class="fas fa-music"></i> 01
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <!-- 02 -->
+                                    <td>
+                                        <form>
+                                            <button type="button" class="btn btn-outline-light btn-lg btn-block" id="music02">
+                                                <i class="fas fa-music"></i> 02
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <!-- 03 -->
+                                    <td>
+                                        <form>
+                                            <button type="button" class="btn btn-outline-light btn-lg btn-block" id="music03">
+                                                <i class="fas fa-music"></i> 03
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- End of Music Buttons -->
                     </div>
-                    <div class="col-md">
-                        <form>
-                            <div class="form-group">
-                                <label for="rightArm">R-Arm</label>
-                                <input id="rightArm" class="custom-range" type="range" name="range" min="-80" max="80"><span id="rightArmVal">0</span>
+                    <div id="servoPane" class="tab-pane">
+                        <!-- Servos -->
+                        <!-- <h5> Servos </h5> -->
+                        <div class="row">
+                            <div class="col-md">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="leftArm">L-Arm</label>
+                                        <input id="leftArm" class="custom-range" type="range" name="range" min="-80" max="80"><span id="leftArmVal">0</span>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                            <div class="col-md">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="head">Head</label>
+                                        <input id="head" class="custom-range" type="range" name="range" min="-80" max="80"><span id="headVal">0</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="rightArm">R-Arm</label>
+                                        <input id="rightArm" class="custom-range" type="range" name="range" min="-80" max="80"><span id="rightArmVal">0</span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- End of Servos -->
+                    </div>
+                    <div id="photo4" class="tab-pane">
+                        <img src="http://placehold.jp/3d4070/ffffff/150x150.png?text=04" class="img-fluid" alt="" />
                     </div>
                 </div>
-                <!-- End of Servos -->
-
             </div>
         </div>
     </div>
@@ -348,7 +368,6 @@
         </div>
     </footer>
     <script type="text/javascript">
-
     var latestId = "pose";
 
     var linear = 0.0;
@@ -393,36 +412,37 @@
     function handlePowerChange(ev) {
         // update values in the page
         if (ev.target.id == 'power') {
-            power = parseFloat(ev.target.value)*0.01;
+            power = parseFloat(ev.target.value) * 0.01;
             valuePower.innerText = ev.target.value;
 
             TwistUpdate(latestId);
         }
     }
-    function handleTwistChange(ev){
+
+    function handleTwistChange(ev) {
         // target is often null. it is assumed you click icon body.
         // https://qiita.com/sasurai_usagi3/items/45d61fd08cdf7cff57fa
-        if(ev.currentTarget.id){
+        if (ev.currentTarget.id) {
             TwistUpdate(ev.currentTarget.id);
-        }else{
-           console.log('Null id, ' + ev.currentTarget.id); 
+        } else {
+            console.log('Null id, ' + ev.currentTarget.id);
         }
     }
 
-    function TwistUpdate(id){
+    function TwistUpdate(id) {
         console.log('Twist is changeing, ' + id);
         latestId = id;
         if (id == 'leftUp') {
-            linear = 0.5*power;
-            angular = 0.5*power;
+            linear = 0.5 * power;
+            angular = 0.5 * power;
         }
         if (id == 'up') {
             linear = power;
             angular = 0.0;
         }
         if (id == 'rightUp') {
-            linear = 0.5*power;
-            angular = -0.5*power;
+            linear = 0.5 * power;
+            angular = -0.5 * power;
         }
 
         if (id == 'leftTurn') {
@@ -439,21 +459,21 @@
         }
 
         if (id == 'leftDown') {
-            linear = -0.5*power;
-            angular = -0.5*power;
+            linear = -0.5 * power;
+            angular = -0.5 * power;
         }
         if (id == 'down') {
             linear = -power;
             angular = 0.0;
         }
         if (id == 'rightDown') {
-            linear = -0.5*power;
-            angular = 0.5*power;
+            linear = -0.5 * power;
+            angular = 0.5 * power;
         }
         valueLinear.innerText = linear.toFixed(2);
         valueAngular.innerText = angular.toFixed(2);
         if (Talker) {
-            Talker.twistSend(linear,angular);
+            Talker.twistSend(linear, angular);
         }
     }
 
@@ -466,21 +486,22 @@
     music01Btn.addEventListener('mousedown', handleMusicChange);
     music02Btn.addEventListener('mousedown', handleMusicChange);
     music03Btn.addEventListener('mousedown', handleMusicChange);
-    function handleMusicChange(ev){
+
+    function handleMusicChange(ev) {
         // target is often null. it is assumed you click icon body.
         // https://qiita.com/sasurai_usagi3/items/45d61fd08cdf7cff57fa
-        if(ev.currentTarget.id){
-            if(ev.currentTarget.id == "music01"){
+        if (ev.currentTarget.id) {
+            if (ev.currentTarget.id == "music01") {
                 Talker.play('/home/ubuntu/Music/0fc.mp3');
             }
-            if(ev.currentTarget.id == "music02"){
+            if (ev.currentTarget.id == "music02") {
                 Talker.play('/home/ubuntu/Music/1ac.mp3');
             }
-            if(ev.currentTarget.id == "music03"){
+            if (ev.currentTarget.id == "music03") {
                 Talker.play('/home/ubuntu/Music/02c.mp3');
             }
-        }else{
-           console.log('Null id, ' + ev.currentTarget.id); 
+        } else {
+            console.log('Null id, ' + ev.currentTarget.id);
         }
     }
 
