@@ -12,25 +12,31 @@
 
   <node pkg="web_video_server" name="server1" type="web_video_server"></node>
 
-  <node pkg="tamiya_cam_robot" name="robo1" type="vel_listener" output="screen"></node>
+  <node pkg="tamiya_cam_robot" name="robo1" type="wheels_listener" output="screen">
+    <param name="AIN1" type="int" value="22"/>
+    <param name="AIN2" type="int" value="27"/>
+    <param name="PWMA" type="int" value="17"/>
+    <param name="BIN1" type="int" value="13"/>
+    <param name="BIN2" type="int" value="19"/>
+    <param name="PWMB" type="int" value="26"/>
+  </node>
 
   <node pkg="tamiya_cam_robot" name="light1" type="vel_color.py" output="screen"></node>
 
-  <include file="$(find roswww)/launch/roswww.launch" /> 
+  <include file="$(find roswww)/launch/roswww.launch" />
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
 
   <node pkg="sound_pipes" name="player" type="player" output="screen"></node>
 
+  <node pkg="tamiya_cam_robot" name="rarm_listener" type="servo_listener" output="screen">
+    <param name="pin" type="int" value="23"/>
+  </node>
+
   <node pkg="tamiya_cam_robot" name="head_listener" type="servo_listener" output="screen">
-    <param name="name" type="string" value="head"/>
+    <param name="pin" type="int" value="24"/>
   </node>
 
   <node pkg="tamiya_cam_robot" name="larm_listener" type="servo_listener" output="screen">
-    <param name="name" type="string" value="larm"/>
+    <param name="pin" type="int" value="25"/>
   </node>
-
-  <node pkg="tamiya_cam_robot" name="rarm_listener" type="servo_listener" output="screen">
-    <param name="name" type="string" value="rarm"/>
-  </node>
-  
 </launch>
