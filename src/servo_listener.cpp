@@ -16,6 +16,9 @@
 #include <thread>
 #include <TB6612.hpp>
 #include <pigpiod_if2.h>
+#include <string>
+#include <sstream>
+#include <iomanip>
 
 /**
  * @brief Servo Controller
@@ -135,7 +138,11 @@ int main(int argc, char **argv) {
 
   Servo myservo(pi, pin_servo);
 
-  ros::Subscriber sub = nh.subscribe((boost::format("tamiya1/servo%02d") % pin_servo).str(),
+  std::ostringstream sout;
+  sout << std::setfill('0') << std::setw(2) << pin_servo;
+  std::string topic_name = "tamiya1/servo" + sout.str();
+
+  ros::Subscriber sub = nh.subscribe(topic_name,
                                      1000,
                                      &Servo::callback,
                                      &myservo);
