@@ -31,12 +31,12 @@ class Wheels {
   /**
    * @brief set gpio pin numbers for TB6612 type driver
    * @param pi       pigpio id
-   * @param pin_ain1 pin number connected to AIN1 of TB6612
-   * @param pin_ain2 pin number connected to AIN2 of TB6612
-   * @param pin_apwm pin number connected to PWMA of TB6612
-   * @param pin_bin1 pin number connected to BIN1 of TB6612
-   * @param pin_bin2 pin number connected to BIN2 of TB6612
-   * @param pin_bpwm pin number connected to PWMB of TB6612
+   * @param pin_ain1 pin number connected to AIN1 of TB6612 (Motor A)
+   * @param pin_ain2 pin number connected to AIN2 of TB6612 (Motor A)
+   * @param pin_apwm pin number connected to PWMA of TB6612 (Motor A)
+   * @param pin_bin1 pin number connected to BIN1 of TB6612 (Motor B)
+   * @param pin_bin2 pin number connected to BIN2 of TB6612 (Motor B)
+   * @param pin_bpwm pin number connected to PWMB of TB6612 (Motor B)
    *
    * @note You should set STBY pin HIGH.
    */
@@ -54,18 +54,18 @@ class Wheels {
   /**
    * @brief set gpio pin numbers for L298N type driver
    * @param pi       pigpio id
-   * @param pin_ain1 pin number connected to AIN1 (M1A) of L298N
-   * @param pin_ain2 pin number connected to AIN2 (M2A) of L298N
-   * @param pin_bin1 pin number connected to BIN1 (M1B) of L298N
-   * @param pin_bin2 pin number connected to BIN2 (M2B) of L298N
+   * @param pin_m1a pin number connected to M1A of L298N (Motor 1)
+   * @param pin_m1b pin number connected to M1B of L298N (Motor 1)
+   * @param pin_m2a pin number connected to M2A of L298N (Motor 2)
+   * @param pin_m2b pin number connected to M2B of L298N (Motor 2)
    */
   void setPin(int pi,
-              int pin_ain1,
-              int pin_ain2,
-              int pin_bin1,
-              int pin_bin2) {
-    right_.setPin(pi, pin_ain1, pin_ain2);
-    left_.setPin(pi, pin_bin1, pin_bin2);
+              int pin_m1a,
+              int pin_m1b,
+              int pin_m2a,
+              int pin_m2b) {
+    right_.setPin(pi, pin_m1a, pin_m1b); // Motor 1
+    left_.setPin(pi, pin_m2a, pin_m2b); // Motor 2
   }
 
   /**
